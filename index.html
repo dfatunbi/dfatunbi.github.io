@@ -135,15 +135,58 @@
   .sec-head h2{font-family:var(--display);font-weight:500;font-size:clamp(2rem,3.6vw,2.9rem);line-height:1.06;letter-spacing:-.02em}
   .sec-head p{color:var(--muted);font-size:1.05rem;margin-top:16px}
 
+  /* ---------- PRODUCT MODAL ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(12,20,42,.55);backdrop-filter:blur(3px);
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;opacity:0;pointer-events:none;transition:opacity .22s ease;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto}
+  .product-modal{
+    background:var(--card);border-radius:24px;max-width:600px;width:100%;
+    max-height:88vh;overflow-y:auto;position:relative;
+    padding:36px;transform:translateY(14px) scale(.98);opacity:0;
+    transition:transform .25s ease,opacity .25s ease;
+    box-shadow:0 40px 80px -30px rgba(15,36,27,.4);
+  }
+  .modal-overlay.open .product-modal{transform:translateY(0) scale(1);opacity:1}
+  .modal-close{
+    position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;
+    border:1px solid var(--line);background:#fff;display:grid;place-items:center;
+    cursor:pointer;color:var(--muted);transition:.2s;
+  }
+  .modal-close:hover{background:var(--sand);color:var(--ink)}
+  .modal-close svg{width:15px;height:15px}
+  .modal-top{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .modal-cat{color:var(--pine)}
+  .modal-rx{background:var(--mint-soft);color:var(--mint);font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;padding:3px 9px;border-radius:100px;font-weight:600}
+  .product-modal h2{font-family:var(--display);font-weight:500;font-size:2rem;line-height:1.08;letter-spacing:-.02em;margin-bottom:10px}
+  .modal-dose{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+  .modal-desc{font-size:1.02rem;color:var(--muted);margin-bottom:26px;line-height:1.55}
+  .modal-benefits{list-style:none;display:grid;gap:12px;margin-bottom:28px}
+  .modal-benefits li{display:flex;align-items:flex-start;gap:11px;font-size:.94rem;font-weight:500}
+  .modal-benefits .tick{flex:0 0 auto;width:22px;height:22px;border-radius:7px;background:var(--mint-soft);display:grid;place-items:center;margin-top:1px}
+  .modal-benefits .tick svg{width:12px;height:12px}
+  .modal-price-row{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:var(--bg);border:1px solid var(--line);border-radius:16px;margin-bottom:22px}
+  .modal-price-row .amt{font-family:var(--display);font-size:1.5rem;font-weight:500}
+  .modal-price-row .amt span{font-family:var(--body);font-size:.85rem;font-weight:400;color:var(--muted)}
+  .modal-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .modal-cta .btn{flex:1;justify-content:center;min-width:200px}
+  .modal-fine{font-size:.76rem;color:var(--muted);margin-top:16px;line-height:1.6}
+
   /* ---------- TREATMENTS ---------- */
   #treatments{background:transparent}
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .card{
     background:var(--card);border:1px solid var(--line);border-radius:20px;
     padding:26px;display:flex;flex-direction:column;min-height:250px;
-    transition:.25s;position:relative;overflow:hidden;
+    transition:.25s;position:relative;overflow:hidden;cursor:pointer;
   }
   .card:hover{transform:translateY(-4px);border-color:var(--mint);box-shadow:0 24px 48px -30px rgba(15,36,27,.4)}
+  .card:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+  .card .arrow{transition:.2s}
+  .card:hover .arrow{transform:translateX(3px)}
   .card .seq{color:var(--muted);margin-bottom:auto;padding-right:56px}
   .card h3{font-family:var(--display);font-weight:500;font-size:1.4rem;margin:22px 0 8px;line-height:1.1}
   .card p{font-size:.92rem;color:var(--muted);margin-bottom:18px}
@@ -485,7 +528,7 @@
       <div class="faq-item"><button class="faq-q">Which states do you serve?<span class="pm"></span></button><div class="faq-a"><p>Peptivo is currently available in all 50 states. Availability of specific programs can vary by state based on local regulations.</p></div></div>
       <div class="faq-item"><button class="faq-q">Can I cancel or pause?<span class="pm"></span></button><div class="faq-a"><p>Yes — memberships are flexible. You can pause, adjust, or cancel from your dashboard, and your care team is available between refills.</p></div></div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:32px;color:var(--muted)">Still unsure? Message our care team at support@peptivo.com.</p>
+    <p class="reveal" style="text-align:center;margin-top:32px;color:var(--muted)">Still unsure? Message our care team at hello@peptivo.example.</p>
   </div>
 </section>
 
@@ -517,7 +560,6 @@
         <a href="#how">How it works</a>
         <a href="#science">The science</a>
         <a href="#faq">FAQ</a>
-        <a href="#">Careers</a>
       </div>
       <div class="foot-col">
         <h4>Support</h4>
@@ -541,16 +583,42 @@
   </div>
 </footer>
 
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="productModal" aria-hidden="true">
+  <div class="product-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 3l10 10M13 3 3 13"/></svg>
+    </button>
+    <div class="modal-top">
+      <span class="mono modal-cat" id="modalCat"></span>
+      <span class="modal-rx">Rx</span>
+    </div>
+    <h2 id="modalTitle"></h2>
+    <div class="modal-dose mono" id="modalDose"></div>
+    <p class="modal-desc" id="modalDesc"></p>
+    <ul class="modal-benefits" id="modalBenefits"></ul>
+    <div class="modal-price-row">
+      <div class="amt" id="modalPrice"></div>
+      <span class="mono" style="color:var(--muted)">COA verified</span>
+    </div>
+    <div class="modal-cta">
+      <a class="btn mintbtn" href="#treatments" id="modalCtaBtn">Start your consultation</a>
+      <button class="btn ghost" id="modalCloseBtn2" type="button">Keep browsing</button>
+    </div>
+    <p class="modal-fine">Prescription required. Availability depends on a licensed provider's evaluation and, for compounded formulations, is not FDA-approved. Statements have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </div>
+</div>
+
 <script>
   // ---- Full treatment catalog: filter tabs + card grid ----
   (function(){
     const cats = [
-      {key:'weight',    label:'Weight & Metabolic'},
-      {key:'recovery',  label:'Recovery & Repair'},
-      {key:'gh',        label:'GH Support'},
-      {key:'longevity', label:'Longevity & Energy'},
-      {key:'skin',      label:'Skin, Hair & Collagen'},
-      {key:'sexual',    label:'Sexual Wellness'}
+      {key:'weight',    label:'Weight & Metabolic', benefits:['Reduces appetite and food noise','Supports steady, sustainable fat loss','Dosing adjusted by your provider over time']},
+      {key:'recovery',  label:'Recovery & Repair', benefits:['Supports soft-tissue and joint recovery','Fits alongside training or rehab plans','Guided by your care team as you progress']},
+      {key:'gh',        label:'GH Support', benefits:['Encourages the body\'s own growth-hormone release','Often used for sleep, recovery, and vitality','Titrated to your goals under supervision']},
+      {key:'longevity', label:'Longevity & Energy', benefits:['Supports cellular energy and healthy aging','Fits into a broader longevity routine','Monitored alongside your other programs']},
+      {key:'skin',      label:'Skin, Hair & Collagen', benefits:['Supports skin quality and collagen production','Simple addition to an existing routine','Available in injectable or topical form']},
+      {key:'sexual',    label:'Sexual Wellness', benefits:['Supports libido for men and women','Discreet, provider-guided protocol','Reviewed as part of your intake']}
     ];
     const CAT = Object.fromEntries(cats.map(c=>[c.key,c]));
 
@@ -582,18 +650,20 @@
       {t:'sexual', name:'Kisspeptin-10', dose:'10 mg', price:'99', desc:'Peptide researched for reproductive-hormone signaling.'}
     ];
 
+    products.forEach((p,i)=>p.id=i);
+
     const arrowSvg = '<svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
     function cardHTML(p){
       const cat = CAT[p.t];
       return `
-      <a class="card reveal in" href="#treatments" data-t="${p.t}">
+      <div class="card reveal in" data-t="${p.t}" data-id="${p.id}" role="button" tabindex="0" aria-label="View details for ${p.name}">
         <span class="rx">Rx</span>
         <div class="seq mono">${cat.label} · ${p.dose}</div>
         <h3>${p.name}</h3>
         <p>${p.desc}</p>
         <div class="foot"><div class="price">from $${p.price}<span>/mo</span></div><span class="arrow">${arrowSvg}</span></div>
-      </a>`;
+      </div>`;
     }
 
     const cardsEl = document.getElementById('cards');
@@ -619,7 +689,63 @@
       setFilter(b.dataset.f);
     });
 
+    // open product modal on card click / Enter / Space
+    cardsEl.addEventListener('click', e=>{
+      const c = e.target.closest('.card'); if(!c) return;
+      openProductModal(products[+c.dataset.id]);
+    });
+    cardsEl.addEventListener('keydown', e=>{
+      if(e.key!=='Enter' && e.key!==' ') return;
+      const c = e.target.closest('.card'); if(!c) return;
+      e.preventDefault();
+      openProductModal(products[+c.dataset.id]);
+    });
+
     render('all');
+
+    // ---- product detail modal ----
+    const modal = document.getElementById('productModal');
+    const modalCat = document.getElementById('modalCat');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDose = document.getElementById('modalDose');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalBenefits = document.getElementById('modalBenefits');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalCtaBtn = document.getElementById('modalCtaBtn');
+    const tickSvg = '<svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 5 10.5 12 3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    let lastFocused = null;
+
+    window.openProductModal = function(p){
+      if(!p || !modal) return;
+      const cat = CAT[p.t];
+      modalCat.textContent = cat.label;
+      modalTitle.textContent = p.name;
+      modalDose.textContent = `Dose · ${p.dose}`;
+      modalDesc.textContent = p.desc;
+      modalBenefits.innerHTML = cat.benefits.map(b=>`<li><span class="tick">${tickSvg}</span>${b}</li>`).join('');
+      modalPrice.innerHTML = `from $${p.price}<span>/mo</span>`;
+      modalCtaBtn.textContent = `Start your consultation for ${p.name}`;
+      lastFocused = document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('modalClose').focus();
+    };
+
+    function closeProductModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      if(lastFocused) lastFocused.focus();
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeProductModal);
+    document.getElementById('modalCloseBtn2').addEventListener('click', closeProductModal);
+    modalCtaBtn.addEventListener('click', closeProductModal);
+    modal.addEventListener('click', e=>{ if(e.target===modal) closeProductModal(); });
+    document.addEventListener('keydown', e=>{
+      if(e.key==='Escape' && modal.classList.contains('open')) closeProductModal();
+    });
   })();
 
   // peptide beads along the hero chain
