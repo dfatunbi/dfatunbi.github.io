@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitakey — Peptide Therapy, Prescribed to You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7F4EA;
+    --ink:#16261E;
+    --pine:#145C4B;
+    --pine-deep:#0F2620;
+    --mint:#B8892E;
+    --mint-bright:#C9A227;
+    --mint-soft:#F1E6C8;
+    --sand:#EFE8D5;
+    --line:#E1DAC5;
+    --muted:#5B6B60;
+    --card:#FFFEF9;
+    --display:"Fraunces",Georgia,serif;
+    --body:"Inter",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  body{
+    font-family:var(--body);
+    background:
+      radial-gradient(48% 38% at 88% -4%, rgba(20,92,75,.26), transparent 60%),
+      radial-gradient(42% 34% at 4% 6%, rgba(184,137,46,.18), transparent 56%),
+      radial-gradient(55% 45% at 18% 102%, rgba(20,92,75,.22), transparent 62%),
+      radial-gradient(50% 40% at 98% 70%, rgba(201,162,39,.15), transparent 60%),
+      #EFE9D8;
+    background-attachment:fixed;
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(250,250,247,.82);
+    backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .logo .mark{width:30px;height:30px;object-fit:contain;display:block}
+  .logo .mark.lockup{width:auto;height:52px;object-fit:contain}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a.link{font-size:.92rem;font-weight:500;color:var(--pine)}
+  .nav-links a.link:hover{color:var(--mint)}
+  .nav-cta{display:flex;align-items:center;gap:16px}
+  .login{font-size:.92rem;font-weight:500}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--pine);color:#fff;
+    padding:11px 22px;border-radius:100px;
+    font-size:.92rem;font-weight:500;
+    border:none;cursor:pointer;transition:.2s;
+  }
+  .btn:hover{background:var(--pine-deep);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--pine);border:1px solid var(--pine)}
+  .btn.ghost:hover{background:var(--pine);color:#fff}
+  .btn.mintbtn{background:var(--mint-bright);color:var(--pine-deep)}
+  .btn.mintbtn:hover{background:var(--mint)}
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px}
+  .menu-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;transition:.3s}
+  .mobile-only{display:none}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:70px 0 40px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .eyebrow{color:var(--pine);display:inline-flex;align-items:center;gap:9px;margin-bottom:22px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px var(--mint-soft)}
+  h1{font-family:var(--display);font-weight:500;font-size:clamp(2.6rem,5.2vw,4.1rem);line-height:1.02;letter-spacing:-.02em}
+  h1 em{font-style:italic;color:var(--pine)}
+  .hero p.lede{font-size:1.12rem;color:var(--muted);margin:24px 0 30px;max-width:460px}
+  .checks{list-style:none;display:grid;gap:12px;margin-bottom:32px}
+  .checks li{display:flex;align-items:center;gap:11px;font-size:.98rem;font-weight:500}
+  .checks .tick{flex:0 0 auto;width:24px;height:24px;border-radius:7px;background:var(--mint-soft);display:grid;place-items:center}
+  .checks .tick svg{width:13px;height:13px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-actions .note{font-size:.82rem;color:var(--muted)}
+
+  /* hero visual — peptide chain */
+  .hero-visual{position:relative;aspect-ratio:1/1;border-radius:28px;
+    background:radial-gradient(120% 120% at 30% 20%,#1F6B57 0%,#0F2620 100%);
+    overflow:hidden;box-shadow:0 40px 80px -40px rgba(15,36,27,.55)}
+  .hero-visual .grain{position:absolute;inset:0;top:0;left:0;width:100%;height:100%;opacity:.5}
+  @supports not (aspect-ratio: 1 / 1){
+    .hero-visual{height:min(520px,90vw)}
+  }
+  .float-tag{position:absolute;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
+    background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
+    color:#F4EEE1;padding:7px 12px;border-radius:100px;backdrop-filter:blur(4px)}
+  .ft-1{top:8%;left:8%}
+  .ft-2{bottom:32%;right:8%}
+  .ft-3{top:44%;right:6%}
+  .hero-visual .cap{position:absolute;left:26px;bottom:24px;color:#F4EEE1;max-width:60%}
+  .hero-visual .cap .big{font-family:var(--display);font-size:1.5rem;font-weight:500;line-height:1.1}
+  .hero-visual .cap .sm{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:#9FC2B0;margin-top:6px}
+
+  /* trust strip */
+  .trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:56px;background:rgba(255,255,255,.5)}
+  .trust-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:26px;padding:22px 0}
+  .trust-item{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--muted);font-weight:500}
+  .trust-item svg{width:18px;height:18px;color:var(--pine)}
+
+  /* moving banner (marquee) */
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.5);overflow:hidden}
+  .marquee-track{display:flex;align-items:center;gap:52px;white-space:nowrap;width:max-content;padding:20px 0;
+    animation:marqueeScroll 30s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-track span{display:inline-flex;align-items:center;gap:9px;font-size:.88rem;font-weight:500;color:var(--muted);flex:none}
+  .marquee-track span svg{width:16px;height:16px;color:var(--pine);flex:none}
+  .marquee-track span b{color:var(--ink);font-weight:600}
+  @keyframes marqueeScroll{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){
+    .marquee-track{animation:none;flex-wrap:wrap;white-space:normal;justify-content:center;width:auto}
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:88px 0}
+  .sec-head{max-width:620px;margin-bottom:44px}
+  .sec-head .mono{color:var(--pine);margin-bottom:16px;display:block}
+  .sec-head h2{font-family:var(--display);font-weight:500;font-size:clamp(2rem,3.6vw,2.9rem);line-height:1.06;letter-spacing:-.02em}
+  .sec-head p{color:var(--muted);font-size:1.05rem;margin-top:16px}
+
+  /* ---------- PRODUCT MODAL ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(15,38,32,.55);backdrop-filter:blur(3px);
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;opacity:0;pointer-events:none;transition:opacity .22s ease;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto}
+  .product-modal{
+    background:var(--card);border-radius:24px;max-width:600px;width:100%;
+    max-height:88vh;overflow-y:auto;position:relative;
+    padding:36px;transform:translateY(14px) scale(.98);opacity:0;
+    transition:transform .25s ease,opacity .25s ease;
+    box-shadow:0 40px 80px -30px rgba(15,36,27,.4);
+  }
+  .modal-overlay.open .product-modal{transform:translateY(0) scale(1);opacity:1}
+  .modal-close{
+    position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;
+    border:1px solid var(--line);background:#fff;display:grid;place-items:center;
+    cursor:pointer;color:var(--muted);transition:.2s;
+  }
+  .modal-close:hover{background:var(--sand);color:var(--ink)}
+  .modal-close svg{width:15px;height:15px}
+  .modal-top{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .modal-cat{color:var(--pine)}
+  .modal-rx{background:var(--mint-soft);color:var(--mint);font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;padding:3px 9px;border-radius:100px;font-weight:600}
+  .product-modal h2{font-family:var(--display);font-weight:500;font-size:2rem;line-height:1.08;letter-spacing:-.02em;margin-bottom:10px}
+  .modal-dose{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+  .modal-desc{font-size:1.02rem;color:var(--muted);margin-bottom:26px;line-height:1.55}
+  .modal-benefits{list-style:none;display:grid;gap:12px;margin-bottom:28px}
+  .modal-benefits li{display:flex;align-items:flex-start;gap:11px;font-size:.94rem;font-weight:500}
+  .modal-benefits .tick{flex:0 0 auto;width:22px;height:22px;border-radius:7px;background:var(--mint-soft);display:grid;place-items:center;margin-top:1px}
+  .modal-benefits .tick svg{width:12px;height:12px}
+  .modal-price-row{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:var(--bg);border:1px solid var(--line);border-radius:16px;margin-bottom:22px}
+  .modal-price-row .amt{font-family:var(--display);font-size:1.5rem;font-weight:500}
+  .modal-price-row .amt span{font-family:var(--body);font-size:.85rem;font-weight:400;color:var(--muted)}
+  .modal-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .modal-cta .btn{flex:1;justify-content:center;min-width:200px}
+  .modal-fine{font-size:.76rem;color:var(--muted);margin-top:16px;line-height:1.6}
+
+  /* ---------- TREATMENTS ---------- */
+  #treatments{background:transparent}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:26px;display:flex;flex-direction:column;min-height:250px;
+    transition:.25s;position:relative;overflow:hidden;cursor:pointer;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--mint);box-shadow:0 24px 48px -30px rgba(15,36,27,.4)}
+  .card:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+  .card .arrow{transition:.2s}
+  .card:hover .arrow{transform:translateX(3px)}
+  .card .seq{color:var(--muted);margin-bottom:auto;padding-right:56px}
+  .card h3{font-family:var(--display);font-weight:500;font-size:1.4rem;margin:22px 0 8px;line-height:1.1}
+  .card p{font-size:.92rem;color:var(--muted);margin-bottom:18px}
+  .card .foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+  .card .price{font-weight:600;font-size:.98rem}
+  .card .price span{font-weight:400;color:var(--muted);font-size:.82rem}
+  .card .arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.2s}
+  .card:hover .arrow{background:var(--pine);border-color:var(--pine)}
+  .card:hover .arrow svg{stroke:#fff}
+  .card .arrow svg{width:15px;height:15px;stroke:var(--pine);transition:.2s}
+  .card .rx{position:absolute;top:20px;right:20px;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;
+    background:var(--mint-soft);color:var(--pine);padding:4px 9px;border-radius:100px}
+
+  /* ---------- FILTER TABS (treatments catalog) ---------- */
+  .filters{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:36px}
+  .filter-btn{font-family:var(--mono);font-size:.78rem;letter-spacing:.02em;background:#fff;color:var(--muted);
+    border:1px solid var(--line);border-radius:100px;padding:9px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.18s ease}
+  .filter-btn:hover{border-color:var(--pine);color:var(--pine)}
+  .filter-btn.active{background:var(--pine);border-color:var(--pine);color:#fff}
+  .filter-btn .ct{font-size:.7rem;background:rgba(0,0,0,.08);border-radius:100px;padding:1px 7px}
+  .filter-btn.active .ct{background:rgba(255,255,255,.22)}
+
+  /* ---------- HOW IT WORKS ---------- */
+  #how{background:var(--pine-deep);color:#F4EEE1}
+  #how .sec-head h2{color:#fff}
+  #how .sec-head .mono{color:var(--mint)}
+  #how .sec-head p{color:#9FC2B0}
+  .steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:20px}
+  .chain-line{position:absolute;top:22px;left:6%;right:6%;height:2px;
+    background:linear-gradient(90deg,transparent,rgba(201,162,39,.5) 12%,rgba(201,162,39,.5) 88%,transparent);z-index:0}
+  .step{position:relative;z-index:1}
+  .node{width:46px;height:46px;border-radius:50%;background:var(--pine-deep);
+    border:2px solid var(--mint);display:grid;place-items:center;font-family:var(--mono);
+    font-size:.95rem;color:var(--mint);margin-bottom:22px}
+  .step h3{font-family:var(--display);font-weight:500;font-size:1.28rem;margin-bottom:9px;color:#fff}
+  .step p{font-size:.92rem;color:#A9C4B7;line-height:1.55}
+
+  /* ---------- SCIENCE ---------- */
+  .science-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center}
+  .science-visual{border-radius:24px;background:#fff;border:1px solid var(--line);position:relative;padding:34px}
+  .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+  .stat{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .stat .num{font-family:var(--display);font-size:2.1rem;font-weight:500;color:var(--pine)}
+  .stat .lbl{font-size:.82rem;color:var(--muted);margin-top:4px}
+  .science-copy h2{font-family:var(--display);font-weight:500;font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.08;letter-spacing:-.02em}
+  .science-copy .mono{color:var(--pine);display:block;margin-bottom:16px}
+  .science-copy p{color:var(--muted);margin:18px 0;font-size:1.02rem}
+  .feature-list{list-style:none;display:grid;gap:14px;margin-top:24px}
+  .feature-list li{display:flex;gap:13px;font-size:.96rem}
+  .feature-list .fi{flex:0 0 auto;width:24px;height:24px;border-radius:7px;background:var(--mint-soft);display:grid;place-items:center}
+  .feature-list .fi svg{width:13px;height:13px;stroke:var(--pine)}
+
+  /* ---------- TESTIMONIALS ---------- */
+  #reviews{background:rgba(255,255,255,.4)}
+  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .rev{border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column}
+  .stars{color:var(--mint);letter-spacing:2px;font-size:.9rem;margin-bottom:14px}
+  .rev q{font-family:var(--display);font-size:1.08rem;font-weight:400;line-height:1.4;quotes:none}
+  .rev .who{margin-top:auto;padding-top:20px;font-size:.86rem}
+  .rev .who b{display:block;font-weight:600}
+  .rev .who span{color:var(--muted)}
+
+  /* ---------- FAQ ---------- */
+  .faq-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:56px;align-items:start}
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-q{width:100%;background:none;border:none;text-align:left;cursor:pointer;
+    padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;
+    font-family:var(--display);font-size:1.16rem;font-weight:500;color:var(--ink)}
+  .faq-q .pm{flex:0 0 auto;width:26px;height:26px;position:relative}
+  .faq-q .pm::before,.faq-q .pm::after{content:"";position:absolute;background:var(--pine);transition:.3s}
+  .faq-q .pm::before{top:12px;left:4px;right:4px;height:2px}
+  .faq-q .pm::after{left:12px;top:4px;bottom:4px;width:2px}
+  .faq-item.open .pm::after{transform:rotate(90deg);opacity:0}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .faq-a p{padding:0 0 22px;color:var(--muted);font-size:.98rem;max-width:640px}
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band{background:var(--pine);border-radius:28px;padding:60px;text-align:center;position:relative;overflow:hidden}
+  .cta-band h2{font-family:var(--display);font-weight:500;font-size:clamp(2rem,3.6vw,2.8rem);color:#fff;line-height:1.08;letter-spacing:-.02em}
+  .cta-band p{color:#A9C4B7;margin:16px auto 30px;max-width:480px;font-size:1.05rem}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--pine-deep);color:#B9CBC0;padding:70px 0 34px}
+  .foot-top{display:grid;grid-template-columns:repeat(3,minmax(160px,200px));gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1);text-align:center;justify-items:center;justify-content:center;max-width:800px;margin:0 auto}
+  footer .logo{color:#fff;margin-bottom:16px}
+  .foot-blurb{font-size:.92rem;color:#93AC9E;max-width:280px;margin:0 auto}
+  .foot-col h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#B79A55;margin-bottom:18px}
+  .foot-col a{display:block;font-size:.92rem;margin-bottom:11px;color:#CFE0D6}
+  .foot-col a:hover{color:var(--mint)}
+  .disclaimer{font-size:.76rem;color:#7F9488;line-height:1.7;margin:34px auto;max-width:900px;text-align:center}
+  .foot-bottom{display:flex;justify-content:center;align-items:center;text-align:center;flex-wrap:wrap;gap:14px;font-size:.82rem;color:#7F9488;padding-top:26px;border-top:1px solid rgba(255,255,255,.1)}
+
+  /* reveal — hidden ONLY when JS is active (progressive enhancement) */
+  .reveal{transition:opacity .7s ease,transform .7s ease}
+  .js .reveal{opacity:0;transform:translateY(24px)}
+  .js .reveal.in{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:36px}
+    .hero-visual{max-width:440px;margin:0 auto;width:100%;aspect-ratio:auto;height:min(86vw,420px)}
+    .ft-2{bottom:40%}
+    .hero-visual .cap{max-width:56%}
+    .science-grid,.faq-grid{grid-template-columns:1fr;gap:34px}
+    .cards,.revs{grid-template-columns:1fr 1fr}
+    .steps{grid-template-columns:1fr 1fr;gap:34px}
+    .chain-line{display:none}
+    .foot-top{grid-template-columns:1fr 1fr}
+    .menu-toggle{display:block}
+    .cta-band{padding:44px 26px}
+    body{background-attachment:scroll}
+
+    /* hide the inline log-in on mobile; it lives in the menu */
+    .nav-cta .login{display:none}
+
+    /* turn the nav into a tap-to-open dropdown panel */
+    .nav-links{
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      gap:0;
+      position:absolute;
+      top:68px;left:0;right:0;
+      background:rgba(250,250,247,.98);
+      backdrop-filter:saturate(180%) blur(12px);
+      border-bottom:1px solid var(--line);
+      box-shadow:0 26px 44px -30px rgba(15,36,27,.55);
+      padding:6px 24px 16px;
+      transform:translateY(-14px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease,transform .25s ease;
+    }
+    header.nav-open .nav-links{opacity:1;transform:none;pointer-events:auto}
+    .nav-links a.link{
+      font-size:1.02rem;
+      padding:15px 4px;
+      border-bottom:1px solid var(--line);
+    }
+    .nav-links a.link:last-child{border-bottom:none}
+    .mobile-only{display:block}
+
+    /* animate the hamburger into an X */
+    header.nav-open .menu-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    header.nav-open .menu-toggle span:nth-child(2){opacity:0}
+    header.nav-open .menu-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  }
+  @media(max-width:560px){
+    .wrap{padding:0 18px}
+    .cards,.revs,.steps,.stat-row{grid-template-columns:1fr}
+    .foot-top{grid-template-columns:1fr;gap:30px}
+    section{padding:60px 0}
+    .trust-inner{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px}
+    .science-visual{padding:24px}
+    .cta-band{padding:38px 22px}
+    .hero{padding:44px 0 24px}
+    .float-tag{font-size:.62rem;padding:6px 10px}
+    .ft-3{display:none}
+    .ft-2{display:none}
+    .hero-actions .btn{flex:1 1 160px;justify-content:center}
+    .nav-cta .btn{padding:9px 16px;font-size:.86rem}
+  }
+  @media(max-width:400px){
+    .wrap{padding:0 15px}
+    h1{font-size:2.15rem}
+    .trust-inner{grid-template-columns:1fr}
+    .hero p.lede{font-size:1.04rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto}
+    .reveal,.js .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <img class="mark lockup" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNDYwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ29sZEdyYWRIZWFkZXIiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRTJDMjdEIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0IwOEEzRSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gS2V5IGljb24gLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNiwxOCkiPgogICAgPHBvbHlnb24gcG9pbnRzPSIzMiw4IDQ2LDE3IDQ2LDM1IDMyLDQ0IDE4LDM1IDE4LDE3IgogICAgICAgICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2dvbGRHcmFkSGVhZGVyKSIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgICA8Y2lyY2xlIGN4PSIzMiIgY3k9IjI2IiByPSI2LjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNnb2xkR3JhZEhlYWRlcikiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHJlY3QgeD0iNDYiIHk9IjIzIiB3aWR0aD0iMzQiIGhlaWdodD0iNyIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICAgIDxjaXJjbGUgY3g9IjgwIiBjeT0iMjYuNSIgcj0iNyIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICAgIDxyZWN0IHg9IjgwIiB5PSIyNi41IiB3aWR0aD0iNyIgaGVpZ2h0PSIxOCIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICAgIDxjaXJjbGUgY3g9Ijg3IiBjeT0iNDQuNSIgcj0iNiIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICA8L2c+CgogIDwhLS0gV29yZG1hcmsgLS0+CiAgPHRleHQgeD0iMTEyIiB5PSI2NSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsICdUaW1lcyBOZXcgUm9tYW4nLCBzZXJpZiIgZm9udC1zaXplPSI0NiIKICAgICAgICBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMSI+CiAgICA8dHNwYW4gZmlsbD0iIzEyMzEyQiI+VklUQTwvdHNwYW4+PHRzcGFuIGZpbGw9InVybCgjZ29sZEdyYWRIZWFkZXIpIj5LRVk8L3RzcGFuPgogIDwvdGV4dD4KPC9zdmc+Cg==" alt="Vitakey">
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a class="link" href="#treatments">Treatments</a>
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#science">The science</a>
+      <a class="link" href="#faq">FAQ</a>
+      <a class="link mobile-only" href="#">Log in</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="#">Log in</a>
+      <a class="btn" href="#treatments">Get started</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow mono"><span class="dot"></span>Physician-guided peptide therapy</span>
+      <h1>Peptide therapy, <em>prescribed</em> to you.</h1>
+      <p class="lede">Personalized, provider-reviewed peptide protocols for weight, recovery, longevity and performance — evaluated online by US-licensed clinicians and shipped to your door.</p>
+      <ul class="checks">
+        <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5 4.5 9 10 3" stroke="#145C4B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Reviewed by US-licensed medical providers</li>
+        <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5 4.5 9 10 3" stroke="#145C4B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Upfront pricing — no insurance required</li>
+        <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5 4.5 9 10 3" stroke="#145C4B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Free, discreet 2-day shipping</li>
+      </ul>
+      <div class="hero-actions">
+        <a class="btn" href="#treatments">Start your consultation</a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+      <p class="note" style="margin-top:14px">Prescription products require an online evaluation and provider approval.</p>
+    </div>
+
+    <div class="hero-visual reveal">
+      <svg class="grain" viewBox="0 0 500 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glow" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#2E7D63" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#0F2620" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="500" height="500" fill="url(#glow)"/>
+        <!-- peptide chain -->
+        <path id="chainPath" d="M40 380 C 140 300, 160 200, 250 210 S 380 260, 460 140"
+              stroke="#C9A227" stroke-width="2" fill="none" stroke-opacity="0.55" stroke-dasharray="4 7"/>
+        <g id="beads"></g>
+      </svg>
+      <span class="float-tag ft-1">Provider-reviewed Rx</span>
+      <span class="float-tag ft-2">GLP-1 receptor agonist</span>
+      <span class="float-tag ft-3">◇ compounded</span>
+      <div class="cap">
+        <div class="big">Precision dosing, physician oversight.</div>
+        <div class="sm">// every protocol reviewed by a clinician</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOVING BANNER -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><b>COA verified</b> on every batch</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/></svg>US-licensed providers</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke-linecap="round"/></svg>HIPAA-compliant platform</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>503A/503B pharmacy partners</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-6-6 18-3-7-9-5z"/></svg>Available in all 50 states</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>Third-party purity testing</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>Ongoing care &amp; check-ins</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h13l4 4v6h-2M3 7v10h2M9 20a2 2 0 100-4 2 2 0 000 4zM18 20a2 2 0 100-4 2 2 0 000 4z" stroke-linecap="round" stroke-linejoin="round"/></svg>Free, discreet 2-day shipping</span>
+    <!-- duplicated for seamless loop -->
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><b>COA verified</b> on every batch</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/></svg>US-licensed providers</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke-linecap="round"/></svg>HIPAA-compliant platform</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>503A/503B pharmacy partners</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-6-6 18-3-7-9-5z"/></svg>Available in all 50 states</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>Third-party purity testing</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>Ongoing care &amp; check-ins</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h13l4 4v6h-2M3 7v10h2M9 20a2 2 0 100-4 2 2 0 000 4zM18 20a2 2 0 100-4 2 2 0 000 4z" stroke-linecap="round" stroke-linejoin="round"/></svg>Free, discreet 2-day shipping</span>
+  </div>
+</div>
+
+<!-- TREATMENTS -->
+<section id="treatments">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin:0 auto 32px;text-align:center">
+      <span class="mono">// the full formulary</span>
+      <h2>Every treatment we offer.</h2>
+      <p style="margin-left:auto;margin-right:auto">Each program starts with an online medical evaluation. A licensed provider determines whether treatment is appropriate for you before anything ships.</p>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="cards" id="cards"></div>
+    <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--muted);margin:26px auto 0;line-height:1.7;max-width:940px;text-align:center">
+      Prescription required. Products are dispensed only after an online medical evaluation and, where applicable, a valid prescription; approval is not guaranteed. Certain peptides are compounded and are not approved by the U.S. Food and Drug Administration; statements about these products have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease. Every batch ships with a certificate of analysis (COA verified) confirming identity and purity. Prices reflect medication cost when prescribed. Individual results vary.
+    </p>
+  </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin:0 auto 44px;text-align:center">
+      <span class="mono">// the process</span>
+      <h2>Four steps, one continuous chain of care.</h2>
+      <p style="margin-left:auto;margin-right:auto">No clinics, no waiting rooms. From intake to refills, your protocol stays linked to a real provider.</p>
+    </div>
+    <div class="steps">
+      <div class="chain-line"></div>
+      <div class="step reveal"><div class="node">01</div><h3>Consult</h3><p>Answer a focused intake about your health history and goals — fully online, about 8 minutes.</p></div>
+      <div class="step reveal"><div class="node">02</div><h3>Provider review</h3><p>A US-licensed clinician reviews your intake and decides whether a peptide protocol is right for you.</p></div>
+      <div class="step reveal"><div class="node">03</div><h3>Compounded &amp; shipped</h3><p>If approved, your prescription is filled by a licensed pharmacy and shipped free in discreet packaging.</p></div>
+      <div class="step reveal"><div class="node">04</div><h3>Ongoing care</h3><p>Message your care team anytime, track progress, and adjust dosing with clinical guidance.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section id="science">
+  <div class="wrap science-grid">
+    <div class="science-visual reveal">
+      <span class="mono" style="color:var(--pine)">// what peptides are</span>
+      <p style="font-family:var(--display);font-size:1.35rem;line-height:1.35;margin:16px 0 4px;color:var(--ink)">Short chains of amino acids that act as precise biological signals — telling cells what to do, and when.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="num">2–50</div><div class="lbl">amino acids per chain</div></div>
+        <div class="stat"><div class="num">100%</div><div class="lbl">provider-reviewed</div></div>
+        <div class="stat"><div class="num">50</div><div class="lbl">states served</div></div>
+        <div class="stat"><div class="num">&lt; 24h</div><div class="lbl">average review time</div></div>
+      </div>
+    </div>
+    <div class="science-copy reveal">
+      <span class="mono">// why vitakey</span>
+      <h2>Serious about therapeutics. Serious about medicine.</h2>
+      <p>Peptides are powerful signaling agents — which is exactly why they belong under clinical supervision, not in an anonymous checkout cart. Every Vitakey program pairs the therapeutic with a licensed provider who owns the decision.</p>
+      <ul class="feature-list">
+        <li><span class="fi"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 5 10.5 12 3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Sourced from licensed 503A/503B compounding pharmacies with third-party testing.</li>
+        <li><span class="fi"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 5 10.5 12 3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Clear, personalized dosing instructions from your provider — never guesswork.</li>
+        <li><span class="fi"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 5 10.5 12 3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Cancel anytime. Your care team stays with you between refills.</li>
+      </ul>
+      <a class="btn mintbtn" href="#treatments" style="margin-top:30px">Find your program</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin:0 auto 44px;text-align:center">
+      <span class="mono">// good to know</span>
+      <h2>Questions, answered.</h2>
+    </div>
+    <div class="faq-list reveal" style="max-width:900px;margin:0 auto">
+      <div class="faq-item"><button class="faq-q">Do I need a prescription?<span class="pm"></span></button><div class="faq-a"><p>Yes. Vitakey is a provider-first service. Nothing ships without an online evaluation and approval from a licensed clinician, who determines whether a protocol is appropriate and writes any prescription.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Are these products FDA-approved?<span class="pm"></span></button><div class="faq-a"><p>Some programs use FDA-approved medications; others use compounded formulations prepared by licensed pharmacies. Compounded products are not FDA-approved, and statements about them have not been evaluated by the FDA. Your provider will explain what applies to your specific program.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Is insurance required?<span class="pm"></span></button><div class="faq-a"><p>No. Vitakey operates on transparent membership pricing, so you'll always see the full cost upfront with no insurance needed.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How fast is shipping?<span class="pm"></span></button><div class="faq-a"><p>Once a prescription is issued, orders typically ship the same day via 2-day carrier in plain, discreet packaging at no extra cost.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Which states do you serve?<span class="pm"></span></button><div class="faq-a"><p>Vitakey is currently available in all 50 states. Availability of specific programs can vary by state based on local regulations.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Can I cancel or pause?<span class="pm"></span></button><div class="faq-a"><p>Yes — memberships are flexible. You can pause, adjust, or cancel from your dashboard, and your care team is available between refills.</p></div></div>
+    </div>
+    <p class="reveal" style="text-align:center;margin-top:32px;color:var(--muted)">Still unsure? Message our care team at support@vitakey.com.</p>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Ready to start? It takes about 8 minutes.</h2>
+      <p>Complete your online intake today. A licensed provider reviews every submission — usually within 24 hours.</p>
+      <a class="btn mintbtn" href="#treatments">Start your consultation</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-col">
+        <h4>Programs</h4>
+        <a href="#treatments">Weight &amp; Metabolic</a>
+        <a href="#treatments">Recovery &amp; Repair</a>
+        <a href="#treatments">Longevity &amp; Energy</a>
+        <a href="#treatments">GH Support</a>
+        <a href="#treatments">Skin, Hair &amp; Collagen</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#how">How it works</a>
+        <a href="#science">The science</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="foot-col">
+        <h4>Support</h4>
+        <a href="#">Contact</a>
+        <a href="#">Log in</a>
+        <a href="#">Shipping</a>
+        <a href="#">Terms of service</a>
+        <a href="#">Privacy policy</a>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      <strong>Medical disclaimer.</strong> This is a demonstration website. The content on this page is for informational purposes only and is not medical advice, nor a substitute for consultation with a qualified healthcare professional. Vitakey is a telehealth platform that connects patients with independent, US-licensed providers; it does not itself practice medicine. Products are dispensed only after an online evaluation and, where applicable, a valid prescription. Certain peptides are compounded and are not approved by the U.S. Food and Drug Administration; statements regarding these products have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease. Individual results vary. Do not begin, stop, or change any treatment without guidance from a licensed clinician.
+    </p>
+
+    <div class="foot-bottom">
+      <span>© 2026 Vitakey (demo). All rights reserved.</span>
+      <span>·</span>
+      <span>Designed as a concept — not a live pharmacy.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="productModal" aria-hidden="true">
+  <div class="product-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 3l10 10M13 3 3 13"/></svg>
+    </button>
+    <div class="modal-top">
+      <span class="mono modal-cat" id="modalCat"></span>
+      <span class="modal-rx">Rx</span>
+    </div>
+    <h2 id="modalTitle"></h2>
+    <div class="modal-dose mono" id="modalDose"></div>
+    <p class="modal-desc" id="modalDesc"></p>
+    <ul class="modal-benefits" id="modalBenefits"></ul>
+    <div class="modal-price-row">
+      <div class="amt" id="modalPrice"></div>
+      <span class="mono" style="color:var(--muted)">COA verified</span>
+    </div>
+    <div class="modal-cta">
+      <a class="btn mintbtn" href="#treatments" id="modalCtaBtn">Start your consultation</a>
+      <button class="btn ghost" id="modalCloseBtn2" type="button">Keep browsing</button>
+    </div>
+    <p class="modal-fine">Prescription required. Availability depends on a licensed provider's evaluation and, for compounded formulations, is not FDA-approved. Statements have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </div>
+</div>
+
+<script>
+  // ---- Full treatment catalog: filter tabs + card grid ----
+  (function(){
+    const cats = [
+      {key:'weight',    label:'Weight & Metabolic', benefits:['Reduces appetite and food noise','Supports steady, sustainable fat loss','Dosing adjusted by your provider over time']},
+      {key:'recovery',  label:'Recovery & Repair', benefits:['Supports soft-tissue and joint recovery','Fits alongside training or rehab plans','Guided by your care team as you progress']},
+      {key:'gh',        label:'GH Support', benefits:['Encourages the body\'s own growth-hormone release','Often used for sleep, recovery, and vitality','Titrated to your goals under supervision']},
+      {key:'longevity', label:'Longevity & Energy', benefits:['Supports cellular energy and healthy aging','Fits into a broader longevity routine','Monitored alongside your other programs']},
+      {key:'skin',      label:'Skin, Hair & Collagen', benefits:['Supports skin quality and collagen production','Simple addition to an existing routine','Available in injectable or topical form']},
+      {key:'sexual',    label:'Sexual Wellness', benefits:['Supports libido for men and women','Discreet, provider-guided protocol','Reviewed as part of your intake']}
+    ];
+    const CAT = Object.fromEntries(cats.map(c=>[c.key,c]));
+
+    const products = [
+      {t:'weight', name:'Semaglutide', dose:'5 mg', price:'199', desc:'GLP-1 receptor agonist for appetite regulation and weight management.'},
+      {t:'weight', name:'Tirzepatide', dose:'10 mg', price:'329', desc:'Dual GIP/GLP-1 agonist for a stronger metabolic response, when appropriate.'},
+      {t:'weight', name:'Retatrutide', dose:'12 mg', price:'349', desc:'Investigational triple-agonist studied for advanced metabolic support.'},
+      {t:'weight', name:'Cagrilintide', dose:'10 mg', price:'259', desc:'Amylin analog explored alongside GLP-1 therapy for appetite control.'},
+      {t:'weight', name:'AOD-9604', dose:'5 mg', price:'139', desc:'Growth-hormone fragment studied for fat metabolism.'},
+
+      {t:'recovery', name:'BPC-157', dose:'5 mg', price:'149', desc:'Body-protection compound studied for tissue and recovery support.'},
+      {t:'recovery', name:'Thymosin β4 (TB-500)', dose:'10 mg', price:'159', desc:'Peptide fragment researched for flexibility and tissue repair.'},
+      {t:'recovery', name:'BPC-157 + TB-500', dose:'15 mg', price:'199', desc:'Combined recovery blend used for tissue and connective support.'},
+      {t:'recovery', name:'KPV', dose:'5 mg', price:'129', desc:'Tripeptide studied for its anti-inflammatory properties.'},
+
+      {t:'gh', name:'CJC-1295 / Ipamorelin', dose:'10 mg', price:'179', desc:"GH-support pairing that encourages the body's own growth-hormone release."},
+      {t:'gh', name:'Sermorelin', dose:'5 mg', price:'129', desc:'GH-releasing hormone analog studied for sleep, recovery, and vitality.'},
+      {t:'gh', name:'Tesamorelin', dose:'10 mg', price:'199', desc:'GHRH analog researched for body composition and metabolic health.'},
+      {t:'gh', name:'Ipamorelin', dose:'5 mg', price:'119', desc:'Selective GH secretagogue with a gentle, targeted profile.'},
+
+      {t:'longevity', name:'NAD+', dose:'500 mg', price:'159', desc:'Cellular-energy coenzyme therapy for longevity-focused routines.'},
+      {t:'longevity', name:'Epithalon', dose:'10 mg', price:'119', desc:'Tetrapeptide studied for telomere and circadian-related pathways.'},
+      {t:'longevity', name:'MOTS-c', dose:'10 mg', price:'149', desc:'Mitochondrial-derived peptide researched for metabolic function.'},
+
+      {t:'skin', name:'Copper Tripeptide-1 (GHK-Cu)', dose:'50 mg', price:'129', desc:'Copper-binding tripeptide studied for skin quality, hair, and collagen.'},
+      {t:'skin', name:'GHK-Cu Topical', dose:'100 mg', price:'99', desc:'Topical copper-peptide formulation for dermal application.'},
+
+      {t:'sexual', name:'Bremelanotide (PT-141)', dose:'10 mg', price:'109', desc:'Melanocortin agonist studied for libido, for men and women.'},
+      {t:'sexual', name:'Kisspeptin-10', dose:'10 mg', price:'99', desc:'Peptide researched for reproductive-hormone signaling.'}
+    ];
+
+    products.forEach((p,i)=>p.id=i);
+
+    const arrowSvg = '<svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    function cardHTML(p){
+      const cat = CAT[p.t];
+      return `
+      <div class="card reveal in" data-t="${p.t}" data-id="${p.id}" role="button" tabindex="0" aria-label="View details for ${p.name}">
+        <span class="rx">Rx</span>
+        <div class="seq mono">${cat.label} · ${p.dose}</div>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="foot"><div class="price">from $${p.price}<span>/mo</span></div><span class="arrow">${arrowSvg}</span></div>
+      </div>`;
+    }
+
+    const cardsEl = document.getElementById('cards');
+    const filtersEl = document.getElementById('filters');
+    if(!cardsEl || !filtersEl) return;
+
+    function render(filter){
+      const list = filter==='all' ? products : products.filter(p=>p.t===filter);
+      cardsEl.innerHTML = list.map(cardHTML).join('');
+    }
+
+    const counts = cats.map(c=>({...c, n:products.filter(p=>p.t===c.key).length}));
+    filtersEl.innerHTML =
+      `<button class="filter-btn active" data-f="all">All<span class="ct">${products.length}</span></button>` +
+      counts.map(c=>`<button class="filter-btn" data-f="${c.key}">${c.label}<span class="ct">${c.n}</span></button>`).join('');
+
+    function setFilter(f){
+      render(f);
+      filtersEl.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active', b.dataset.f===f));
+    }
+    filtersEl.addEventListener('click', e=>{
+      const b = e.target.closest('.filter-btn'); if(!b) return;
+      setFilter(b.dataset.f);
+    });
+
+    // open product modal on card click / Enter / Space
+    cardsEl.addEventListener('click', e=>{
+      const c = e.target.closest('.card'); if(!c) return;
+      openProductModal(products[+c.dataset.id]);
+    });
+    cardsEl.addEventListener('keydown', e=>{
+      if(e.key!=='Enter' && e.key!==' ') return;
+      const c = e.target.closest('.card'); if(!c) return;
+      e.preventDefault();
+      openProductModal(products[+c.dataset.id]);
+    });
+
+    render('all');
+
+    // ---- product detail modal ----
+    const modal = document.getElementById('productModal');
+    const modalCat = document.getElementById('modalCat');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDose = document.getElementById('modalDose');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalBenefits = document.getElementById('modalBenefits');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalCtaBtn = document.getElementById('modalCtaBtn');
+    const tickSvg = '<svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 5 10.5 12 3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    let lastFocused = null;
+
+    window.openProductModal = function(p){
+      if(!p || !modal) return;
+      const cat = CAT[p.t];
+      modalCat.textContent = cat.label;
+      modalTitle.textContent = p.name;
+      modalDose.textContent = `Dose · ${p.dose}`;
+      modalDesc.textContent = p.desc;
+      modalBenefits.innerHTML = cat.benefits.map(b=>`<li><span class="tick">${tickSvg}</span>${b}</li>`).join('');
+      modalPrice.innerHTML = `from $${p.price}<span>/mo</span>`;
+      modalCtaBtn.textContent = `Start your consultation for ${p.name}`;
+      lastFocused = document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('modalClose').focus();
+    };
+
+    function closeProductModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      if(lastFocused) lastFocused.focus();
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeProductModal);
+    document.getElementById('modalCloseBtn2').addEventListener('click', closeProductModal);
+    modalCtaBtn.addEventListener('click', closeProductModal);
+    modal.addEventListener('click', e=>{ if(e.target===modal) closeProductModal(); });
+    document.addEventListener('keydown', e=>{
+      if(e.key==='Escape' && modal.classList.contains('open')) closeProductModal();
+    });
+  })();
+
+  // peptide beads along the hero chain
+  (function(){
+    const path=document.getElementById('chainPath');
+    const g=document.getElementById('beads');
+    if(!path||!g)return;
+    const len=path.getTotalLength();
+    const N=9;
+    for(let i=0;i<N;i++){
+      const p=path.getPointAtLength((i/(N-1))*len);
+      const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx',p.x);c.setAttribute('cy',p.y);
+      c.setAttribute('r', i%2? 4.5:7);
+      c.setAttribute('fill', i%2? '#F4EEE1':'#C9A227');
+      c.setAttribute('opacity', i%2? '0.85':'1');
+      if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        const a=document.createElementNS('http://www.w3.org/2000/svg','animate');
+        a.setAttribute('attributeName','r');
+        a.setAttribute('values',(i%2?4.5:7)+';'+(i%2?6:9)+';'+(i%2?4.5:7));
+        a.setAttribute('dur',(2.4+i*0.2)+'s');
+        a.setAttribute('repeatCount','indefinite');
+        c.appendChild(a);
+      }
+      g.appendChild(c);
+    }
+  })();
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+      const item=q.parentElement;
+      const a=item.querySelector('.faq-a');
+      const open=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(it=>{it.classList.remove('open');it.querySelector('.faq-a').style.maxHeight=null;});
+      if(!open){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
+    });
+  });
+
+  // mobile menu toggle
+  const header=document.querySelector('header');
+  const mt=document.getElementById('menuToggle');
+  if(mt&&header){
+    mt.addEventListener('click',()=>{
+      const open=header.classList.toggle('nav-open');
+      mt.setAttribute('aria-expanded',open?'true':'false');
+      mt.setAttribute('aria-label',open?'Close menu':'Open menu');
+    });
+    // close the menu after tapping any nav link
+    document.querySelectorAll('#navLinks a').forEach(a=>{
+      a.addEventListener('click',()=>{
+        header.classList.remove('nav-open');
+        mt.setAttribute('aria-expanded','false');
+        mt.setAttribute('aria-label','Open menu');
+      });
+    });
+    // close if the viewport grows back to desktop
+    window.addEventListener('resize',()=>{
+      if(window.innerWidth>900&&header.classList.contains('nav-open')){
+        header.classList.remove('nav-open');
+        mt.setAttribute('aria-expanded','false');
+        mt.setAttribute('aria-label','Open menu');
+      }
+    });
+  }
+
+  // enable reveal-hiding only now that JS is confirmed running
+  document.documentElement.classList.add('js');
+
+  // scroll reveal (with fail-safes so content is never stuck hidden)
+  const revealEls=document.querySelectorAll('.reveal');
+  function showAll(){revealEls.forEach(el=>el.classList.add('in'));}
+
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((es)=>{
+      es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:0,rootMargin:'0px 0px -8% 0px'});
+    revealEls.forEach(el=>io.observe(el));
+    // safety net: if anything is still hidden shortly after load, just show it
+    window.addEventListener('load',()=>setTimeout(showAll,1500));
+  }else{
+    // older browsers without IntersectionObserver: show everything
+    showAll();
+  }
+</script>
+</body>
+</html>
