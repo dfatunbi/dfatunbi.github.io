@@ -83,6 +83,7 @@
   .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px var(--mint-soft)}
   h1{font-family:var(--display);font-weight:500;font-size:clamp(2.6rem,5.2vw,4.1rem);line-height:1.02;letter-spacing:-.02em}
   h1 em{font-style:italic;color:var(--pine)}
+  .tagline{font-family:var(--display);font-style:italic;font-weight:500;font-size:1.18rem;color:var(--mint);margin-top:10px;letter-spacing:-.005em}
   .hero p.lede{font-size:1.12rem;color:var(--muted);margin:24px 0 30px;max-width:460px}
   .checks{list-style:none;display:grid;gap:12px;margin-bottom:32px}
   .checks li{display:flex;align-items:center;gap:11px;font-size:.98rem;font-weight:500}
@@ -390,6 +391,7 @@
     <div class="hero-copy reveal">
       <span class="eyebrow mono"><span class="dot"></span>Physician-guided peptide therapy</span>
       <h1>Peptide therapy, <em>prescribed</em> to you.</h1>
+      <p class="tagline">The key to your health and wellness.</p>
       <p class="lede">Personalized, provider-reviewed peptide protocols for weight, recovery, longevity and performance — evaluated online by US-licensed clinicians and shipped to your door.</p>
       <ul class="checks">
         <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5 4.5 9 10 3" stroke="#145C4B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Reviewed by US-licensed medical providers</li>
@@ -578,6 +580,8 @@
     <div class="foot-bottom">
       <span>© 2026 Vitakey (demo). All rights reserved.</span>
       <span>·</span>
+      <span>The key to your health and wellness.</span>
+      <span>·</span>
       <span>Designed as a concept — not a live pharmacy.</span>
     </div>
   </div>
@@ -677,8 +681,8 @@
 
     const counts = cats.map(c=>({...c, n:products.filter(p=>p.t===c.key).length}));
     filtersEl.innerHTML =
-      `<button class="filter-btn active" data-f="all">All<span class="ct">${products.length}</span></button>` +
-      counts.map(c=>`<button class="filter-btn" data-f="${c.key}">${c.label}<span class="ct">${c.n}</span></button>`).join('');
+      counts.map(c=>`<button class="filter-btn" data-f="${c.key}">${c.label}<span class="ct">${c.n}</span></button>`).join('') +
+      `<button class="filter-btn active" data-f="all">All<span class="ct">${products.length}</span></button>`;
 
     function setFilter(f){
       render(f);
