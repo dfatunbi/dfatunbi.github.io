@@ -56,10 +56,15 @@
     backdrop-filter:saturate(180%) blur(12px);
     border-bottom:1px solid var(--line);
   }
-  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .nav{display:flex;align-items:center;justify-content:space-between;min-height:68px;padding:10px 0}
+  .logo-block{display:flex;flex-direction:column;align-items:center;gap:0}
   .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
   .logo .mark{width:30px;height:30px;object-fit:contain;display:block}
   .logo .mark.lockup{width:auto;height:52px;object-fit:contain}
+  .tagline.tagline-header{
+    font-size:.9rem;margin:-14px 0 0;line-height:1.2;text-align:center;
+    color:#000;
+  }
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a.link{font-size:.92rem;font-weight:500;color:var(--pine);position:relative}
   .nav-links a.link:hover{color:var(--mint)}
@@ -191,19 +196,20 @@
   .calc-field label{color:var(--pine)}
   .calc-field select{
     font-family:var(--body);font-size:.98rem;font-weight:500;color:var(--ink);
-    padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);
+    padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--sand);
     cursor:pointer;transition:.15s;
   }
   .calc-field select:focus{outline:none;border-color:var(--pine)}
   .calc-result{
     display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
-    padding:24px;background:var(--bg);border:1px solid var(--line);border-radius:18px;
+    padding:24px;background:var(--pine);border:1px solid var(--pine);border-radius:18px;
   }
-  .calc-dose .calc-dose-amt{font-family:var(--display);font-size:1.7rem;color:var(--ink);margin-top:4px}
+  .calc-result .mono{color:rgba(247,244,234,.72)}
+  .calc-dose .calc-dose-amt{font-family:var(--display);font-size:2.6rem;color:var(--bg);margin-top:4px}
   .calc-price{text-align:right}
-  .calc-price .calc-price-amt{font-family:var(--display);font-size:2.1rem;color:var(--pine);margin-top:4px;transition:.2s}
-  .calc-price .calc-price-amt span{font-family:var(--body);font-size:.9rem;font-weight:400;color:var(--muted)}
-  .calc-total{font-size:.82rem;color:var(--muted);margin-top:2px}
+  .calc-price .calc-price-amt{font-family:var(--display);font-size:2.6rem;font-weight:600;color:var(--bg);margin-top:4px;transition:.2s;letter-spacing:-.01em}
+  .calc-price .calc-price-amt span{font-family:var(--body);font-size:.9rem;font-weight:400;color:rgba(247,244,234,.72)}
+  .calc-total{font-size:.82rem;color:rgba(247,244,234,.72);margin-top:2px}
   .calc-fine{font-size:.78rem;color:var(--muted);margin-top:18px;line-height:1.6}
   @media (max-width:640px){
     .calc-row{grid-template-columns:1fr}
@@ -263,6 +269,16 @@
 
   /* ---------- HOW IT WORKS ---------- */
   #how{background:var(--pine-deep);color:#F4EEE1}
+  #faq{background:var(--pine-deep);padding:32px 0;margin-bottom:36px}
+  #faq .sec-head h2{color:#fff;font-size:clamp(1.5rem,2.4vw,2rem)}
+  #faq .sec-head .mono{color:var(--mint)}
+  #faq .faq-item{border-bottom:1px solid rgba(255,255,255,.14)}
+  #faq .faq-q{color:#fff}
+  #faq .faq-q .pm::before,#faq .faq-q .pm::after{background:var(--mint-bright)}
+  #faq .faq-a p{color:#A9C4B7}
+  #faq > .wrap > p{color:#9FC2B0!important}
+  #faq .copy-email{color:var(--mint-bright);border-bottom-color:var(--mint-bright)}
+  #faq .copy-email:hover{color:#fff;border-color:#fff}
   #how .sec-head h2{color:#fff}
   #how .sec-head .mono{color:var(--mint)}
   #how .sec-head p{color:#9FC2B0}
@@ -280,11 +296,11 @@
 
   /* ---------- SCIENCE ---------- */
   .science-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center}
-  .science-visual{border-radius:24px;background:#fff;border:1px solid var(--line);position:relative;padding:34px}
+  .science-visual{border-radius:24px;background:var(--pine-deep);border:1px solid var(--pine-deep);position:relative;padding:34px;box-shadow:0 30px 60px -34px rgba(15,36,27,.45)}
   .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
-  .stat{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px}
-  .stat .num{font-family:var(--display);font-size:2.1rem;font-weight:500;color:var(--pine)}
-  .stat .lbl{font-size:.82rem;color:var(--muted);margin-top:4px}
+  .stat{background:var(--pine);border:1px solid var(--pine);border-radius:16px;padding:20px}
+  .stat .num{font-family:var(--display);font-size:2.1rem;font-weight:500;color:var(--bg)}
+  .stat .lbl{font-size:.82rem;color:rgba(247,244,234,.72);margin-top:4px}
   .science-copy h2{font-family:var(--display);font-weight:500;font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.08;letter-spacing:-.02em}
   .science-copy .mono{color:var(--pine);display:block;margin-bottom:16px}
   .science-copy p{color:var(--muted);margin:18px 0;font-size:1.02rem}
@@ -307,15 +323,15 @@
   .faq-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:56px;align-items:start}
   .faq-item{border-bottom:1px solid var(--line)}
   .faq-q{width:100%;background:none;border:none;text-align:left;cursor:pointer;
-    padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;
-    font-family:var(--display);font-size:1.16rem;font-weight:500;color:var(--ink)}
-  .faq-q .pm{flex:0 0 auto;width:26px;height:26px;position:relative}
+    padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;
+    font-family:var(--display);font-size:1rem;font-weight:500;color:var(--ink)}
+  .faq-q .pm{flex:0 0 auto;width:22px;height:22px;position:relative}
   .faq-q .pm::before,.faq-q .pm::after{content:"";position:absolute;background:var(--pine);transition:.3s}
-  .faq-q .pm::before{top:12px;left:4px;right:4px;height:2px}
-  .faq-q .pm::after{left:12px;top:4px;bottom:4px;width:2px}
+  .faq-q .pm::before{top:10px;left:3px;right:3px;height:2px}
+  .faq-q .pm::after{left:10px;top:3px;bottom:3px;width:2px}
   .faq-item.open .pm::after{transform:rotate(90deg);opacity:0}
   .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
-  .faq-a p{padding:0 0 22px;color:var(--muted);font-size:.98rem;max-width:640px}
+  .faq-a p{padding:0 0 14px;color:var(--muted);font-size:.88rem;max-width:640px}
 
   /* ---------- COPY EMAIL ---------- */
   .copy-email{
@@ -450,9 +466,12 @@
 <!-- NAV -->
 <header>
   <div class="wrap nav">
-    <a href="#" class="logo">
-      <img class="mark lockup" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNDYwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ29sZEdyYWRIZWFkZXIiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRTJDMjdEIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0IwOEEzRSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gS2V5IGljb24gLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNiwxOCkiPgogICAgPHBvbHlnb24gcG9pbnRzPSIzMiw4IDQ2LDE3IDQ2LDM1IDMyLDQ0IDE4LDM1IDE4LDE3IgogICAgICAgICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2dvbGRHcmFkSGVhZGVyKSIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgICA8Y2lyY2xlIGN4PSIzMiIgY3k9IjI2IiByPSI2LjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNnb2xkR3JhZEhlYWRlcikiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHJlY3QgeD0iNDYiIHk9IjIzIiB3aWR0aD0iMzQiIGhlaWdodD0iNyIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICAgIDxjaXJjbGUgY3g9IjgwIiBjeT0iMjYuNSIgcj0iNyIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICAgIDxyZWN0IHg9IjgwIiB5PSIyNi41IiB3aWR0aD0iNyIgaGVpZ2h0PSIxOCIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICAgIDxjaXJjbGUgY3g9Ijg3IiBjeT0iNDQuNSIgcj0iNiIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICA8L2c+CgogIDwhLS0gV29yZG1hcmsgLS0+CiAgPHRleHQgeD0iMTEyIiB5PSI2NSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsICdUaW1lcyBOZXcgUm9tYW4nLCBzZXJpZiIgZm9udC1zaXplPSI0NiIKICAgICAgICBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMSI+CiAgICA8dHNwYW4gZmlsbD0iIzEyMzEyQiI+VklUQTwvdHNwYW4+PHRzcGFuIGZpbGw9InVybCgjZ29sZEdyYWRIZWFkZXIpIj5LRVk8L3RzcGFuPgogIDwvdGV4dD4KPC9zdmc+Cg==" alt="Vitakey">
-    </a>
+    <div class="logo-block">
+      <a href="#" class="logo">
+        <img class="mark lockup" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNDYwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ29sZEdyYWRIZWFkZXIiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRTJDMjdEIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0IwOEEzRSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gS2V5IGljb24gLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNiwxOCkiPgogICAgPHBvbHlnb24gcG9pbnRzPSIzMiw4IDQ2LDE3IDQ2LDM1IDMyLDQ0IDE4LDM1IDE4LDE3IgogICAgICAgICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2dvbGRHcmFkSGVhZGVyKSIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgICA8Y2lyY2xlIGN4PSIzMiIgY3k9IjI2IiByPSI2LjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNnb2xkR3JhZEhlYWRlcikiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHJlY3QgeD0iNDYiIHk9IjIzIiB3aWR0aD0iMzQiIGhlaWdodD0iNyIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICAgIDxjaXJjbGUgY3g9IjgwIiBjeT0iMjYuNSIgcj0iNyIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICAgIDxyZWN0IHg9IjgwIiB5PSIyNi41IiB3aWR0aD0iNyIgaGVpZ2h0PSIxOCIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICAgIDxjaXJjbGUgY3g9Ijg3IiBjeT0iNDQuNSIgcj0iNiIgZmlsbD0idXJsKCNnb2xkR3JhZEhlYWRlcikiLz4KICA8L2c+CgogIDwhLS0gV29yZG1hcmsgLS0+CiAgPHRleHQgeD0iMTEyIiB5PSI2NSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsICdUaW1lcyBOZXcgUm9tYW4nLCBzZXJpZiIgZm9udC1zaXplPSI0NiIKICAgICAgICBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMSI+CiAgICA8dHNwYW4gZmlsbD0iIzE0NUM0QiI+VklUQTwvdHNwYW4+PHRzcGFuIGZpbGw9InVybCgjZ29sZEdyYWRIZWFkZXIpIj5LRVk8L3RzcGFuPgogIDwvdGV4dD4KPC9zdmc+Cg==" alt="Vitakey">
+      </a>
+      <p class="tagline tagline-header" id="typeTagline" data-text="The key to your health and wellness."><span class="type-text"></span><span class="type-cursor" aria-hidden="true">|</span></p>
+    </div>
     <nav class="nav-links" id="navLinks">
       <a class="link" href="#treatments">Treatments</a>
       <a class="link" href="#how">How it works</a>
@@ -473,7 +492,6 @@
   <div class="wrap hero-grid">
     <div class="hero-copy reveal">
       <span class="eyebrow mono"><span class="dot"></span>Physician-guided peptide therapy</span>
-      <p class="tagline" id="typeTagline" data-text="The key to your health and wellness."><span class="type-text"></span><span class="type-cursor" aria-hidden="true">|</span></p>
       <h1>Peptide therapy, <em>prescribed</em> to you.</h1>
       <p class="lede">Personalized, provider-reviewed peptide protocols for weight, recovery, longevity and performance — evaluated online by US-licensed clinicians and shipped to your door.</p>
       <ul class="checks">
@@ -559,7 +577,7 @@
 </section>
 
 <!-- CALCULATOR -->
-<section id="calculator" style="padding-top:0">
+<section id="calculator" style="padding-top:40px">
   <div class="wrap">
     <div class="sec-head reveal" style="margin:0 auto 40px;text-align:center">
       <span class="mono">// estimate your cost</span>
@@ -602,8 +620,8 @@
 <section id="science">
   <div class="wrap science-grid">
     <div class="science-visual reveal">
-      <span class="mono" style="color:var(--pine)">// what peptides are</span>
-      <p style="font-family:var(--display);font-size:1.35rem;line-height:1.35;margin:16px 0 4px;color:var(--ink)">Short chains of amino acids that act as precise biological signals — telling cells what to do, and when.</p>
+      <span class="mono" style="color:var(--mint)">// what peptides are</span>
+      <p style="font-family:var(--display);font-size:1.35rem;line-height:1.35;margin:16px 0 4px;color:#F4EEE1">Short chains of amino acids that act as precise biological signals — telling cells what to do, and when.</p>
       <div class="stat-row">
         <div class="stat"><div class="num">2–50</div><div class="lbl">amino acids per chain</div></div>
         <div class="stat"><div class="num" data-count="100" data-suffix="%">0%</div><div class="lbl">provider-reviewed</div></div>
@@ -628,7 +646,7 @@
 <!-- FAQ -->
 <section id="faq">
   <div class="wrap">
-    <div class="sec-head reveal" style="margin:0 auto 44px;text-align:center">
+    <div class="sec-head reveal" style="margin:0 auto 20px;text-align:center">
       <span class="mono">// good to know</span>
       <h2>Questions, answered.</h2>
     </div>
@@ -640,7 +658,7 @@
       <div class="faq-item"><button class="faq-q">Which states do you serve?<span class="pm"></span></button><div class="faq-a"><p>Vitakey is currently available in all 50 states. Availability of specific programs can vary by state based on local regulations.</p></div></div>
       <div class="faq-item"><button class="faq-q">Can I cancel or pause?<span class="pm"></span></button><div class="faq-a"><p>Yes — memberships are flexible. You can pause, adjust, or cancel from your dashboard, and your care team is available between refills.</p></div></div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:32px;color:var(--muted)">Still unsure? Message our care team at <button id="copyEmail" class="copy-email">support@vitakey.com<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10" stroke-linecap="round"/></svg></button>.</p>
+    <p class="reveal" style="text-align:center;margin-top:20px;color:var(--muted)">Still unsure? Message our care team at <button id="copyEmail" class="copy-email">support@vitakey.com<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10" stroke-linecap="round"/></svg></button>.</p>
     <span id="copyToast" class="copy-toast" role="status" aria-live="polite">Copied to clipboard</span>
   </div>
 </section>
@@ -745,8 +763,6 @@
     const products = [
       {t:'weight', name:'Semaglutide', dose:'5 mg', price:'199', desc:'GLP-1 receptor agonist for appetite regulation and weight management.'},
       {t:'weight', name:'Tirzepatide', dose:'10 mg', price:'329', desc:'Dual GIP/GLP-1 agonist for a stronger metabolic response, when appropriate.'},
-      {t:'weight', name:'Retatrutide', dose:'12 mg', price:'349', desc:'Investigational triple-agonist studied for advanced metabolic support.'},
-      {t:'weight', name:'Cagrilintide', dose:'10 mg', price:'259', desc:'Amylin analog explored alongside GLP-1 therapy for appetite control.'},
       {t:'weight', name:'AOD-9604', dose:'5 mg', price:'139', desc:'Growth-hormone fragment studied for fat metabolism.'},
 
       {t:'recovery', name:'BPC-157', dose:'5 mg', price:'149', desc:'Body-protection compound studied for tissue and recovery support.'},
@@ -766,8 +782,7 @@
       {t:'skin', name:'Copper Tripeptide-1 (GHK-Cu)', dose:'50 mg', price:'129', desc:'Copper-binding tripeptide studied for skin quality, hair, and collagen.'},
       {t:'skin', name:'GHK-Cu Topical', dose:'100 mg', price:'99', desc:'Topical copper-peptide formulation for dermal application.'},
 
-      {t:'sexual', name:'Bremelanotide (PT-141)', dose:'10 mg', price:'109', desc:'Melanocortin agonist studied for libido, for men and women.'},
-      {t:'sexual', name:'Kisspeptin-10', dose:'10 mg', price:'99', desc:'Peptide researched for reproductive-hormone signaling.'}
+      {t:'sexual', name:'Bremelanotide (PT-141)', dose:'10 mg', price:'109', desc:'Melanocortin agonist studied for libido, for men and women.'}
     ];
 
     products.forEach((p,i)=>p.id=i);
