@@ -78,7 +78,7 @@
   .logo .mark.lockup{width:auto;height:40px;object-fit:contain}
   .tagline.tagline-header{
     font-size:.78rem;margin:-6px 0 0;line-height:1.2;text-align:center;
-    color:#000;
+    color:#000;font-weight:700;
   }
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a.link{font-size:.92rem;font-weight:500;color:var(--pine);position:relative}
@@ -95,8 +95,8 @@
     border:none;cursor:pointer;transition:.2s;
   }
   .btn:hover{background:var(--pine-deep);transform:translateY(-1px)}
-  .btn.ghost{background:var(--sand);color:var(--pine);border:1px solid var(--sand)}
-  .btn.ghost:hover{background:var(--pine);color:#fff}
+  .btn.ghost{background:var(--pine);color:#fff;border:1px solid var(--pine)}
+  .btn.ghost:hover{background:var(--pine-deep);color:#fff}
   .btn.mintbtn{background:var(--mint-bright);color:var(--pine-deep)}
   .btn.mintbtn:hover{background:var(--mint)}
   .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px}
@@ -287,7 +287,7 @@
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .card{
     background:var(--card);border:1px solid var(--line);border-radius:20px;
-    padding:26px;display:flex;flex-direction:column;min-height:250px;
+    padding:26px;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:250px;
     transition:.25s;position:relative;overflow:hidden;cursor:pointer;
   }
   .card .thumb{
@@ -302,10 +302,10 @@
   .card:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
   .card .arrow{transition:.2s}
   .card:hover .arrow{transform:translateX(3px)}
-  .card .seq{display:inline-block;color:#fff;background:var(--pine);padding:4px 10px;border-radius:6px;margin-bottom:auto;align-self:flex-start}
+  .card .seq{display:inline-block;color:#fff;background:var(--pine);padding:4px 10px;border-radius:6px;margin-bottom:auto;align-self:center}
   .card h3{font-family:var(--display);font-weight:500;font-size:1.4rem;margin:22px 0 8px;line-height:1.1;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
   .card p{font-size:.92rem;color:var(--muted);margin-bottom:18px}
-  .card .foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+  .card .foot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:auto}
   .card .price{font-weight:600;font-size:.98rem}
   .card .price span{font-weight:400;color:var(--muted);font-size:.82rem}
   .card .arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.2s}
@@ -844,7 +844,6 @@
       <span class="mono modal-cat" id="modalCat"></span>
       <span class="modal-rx">Rx</span>
     </div>
-    <div class="modal-dose mono" id="modalDose"></div>
     <p class="modal-desc" id="modalDesc"></p>
     <ul class="modal-benefits" id="modalBenefits"></ul>
     <div class="modal-plan-row">
@@ -997,7 +996,7 @@
       <div class="card reveal in" data-t="${p.t}" data-id="${p.id}" role="button" tabindex="0" aria-label="View details for ${p.name}">
         <span class="rx">Rx</span>
         ${thumb}
-        <div class="seq mono">${cat.label} · ${p.dose}</div>
+        <div class="seq mono">${cat.label}</div>
         <h3>${p.name}</h3>
         <p>${p.desc}</p>
         <div class="foot"><div class="price">from $${p.price}<span>/mo</span></div><span class="arrow">${arrowSvg}</span></div>
@@ -1101,7 +1100,6 @@
     const modalThumbImg = document.getElementById('modalThumbImg');
     const modalCat = document.getElementById('modalCat');
     const modalTitle = document.getElementById('modalTitle');
-    const modalDose = document.getElementById('modalDose');
     const modalDesc = document.getElementById('modalDesc');
     const modalBenefits = document.getElementById('modalBenefits');
     const modalPrice = document.getElementById('modalPrice');
@@ -1162,7 +1160,6 @@
       modalCat.textContent = cat.label;
       modalTitle.textContent = p.name;
       fitButtonTextOneLine(modalTitle, 18);
-      modalDose.textContent = `Dose · ${p.dose}`;
       modalDesc.textContent = p.desc;
       modalBenefits.innerHTML = cat.benefits.map(b=>`<li><span class="tick">${tickSvg}</span>${b}</li>`).join('');
       currentModalProduct = p;
