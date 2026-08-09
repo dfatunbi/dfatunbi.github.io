@@ -93,7 +93,7 @@
     display:inline-flex;align-items:center;gap:8px;
     background:var(--pine);color:#fff;
     padding:11px 22px;border-radius:100px;
-    font-size:.92rem;font-weight:500;white-space:nowrap;
+    font-family:inherit;font-size:.92rem;font-weight:500;white-space:nowrap;
     border:none;cursor:pointer;transition:.2s;
   }
   .btn:hover{background:var(--pine-deep);transform:translateY(-1px)}
@@ -127,18 +127,9 @@
 
   /* hero visual — provider photo, blended into the page (no hard box/shadow) */
   .hero-visual{position:relative;aspect-ratio:1/1;background:transparent;overflow:visible}
-  .hero-visual img.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:56% 32%}
   @supports not (aspect-ratio: 1 / 1){
     .hero-visual{height:min(520px,90vw)}
   }
-  .float-tag{position:absolute;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
-    background:rgba(11,28,23,.62);border:1px solid rgba(255,255,255,.22);
-    color:#F4EEE1;padding:7px 12px;border-radius:100px;-webkit-backdrop-filter:blur(6px);
-    backdrop-filter:blur(6px);
-    box-shadow:0 6px 18px -8px rgba(0,0,0,.4)}
-  .ft-1{top:6%;left:4%}
-  .ft-2{bottom:12%;right:4%}
-  .ft-3{top:40%;right:2%}
 
   /* hero background photo + overlay (added) */
   .hero.has-bg{
@@ -175,12 +166,6 @@
   @media (max-width:560px){
     .hero.has-bg .hero-grid{max-width:100%}
   }
-
-  /* trust strip */
-  .trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:56px;background:rgba(255,255,255,.5)}
-  .trust-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:26px;padding:22px 0}
-  .trust-item{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--muted);font-weight:500}
-  .trust-item svg{width:18px;height:18px;color:var(--pine)}
 
   /* moving banner (marquee) */
   .marquee{border-top:1px solid var(--pine);border-bottom:1px solid var(--pine);background:var(--pine);overflow:hidden;position:relative}
@@ -231,7 +216,6 @@
   .modal-thumb.show{display:flex}
   .modal-thumb img{max-width:100%;max-height:100%;object-fit:contain}
   .product-modal h2{font-family:var(--display);font-weight:500;font-size:2rem;letter-spacing:-.02em;margin:6px auto 16px;max-width:calc(100% - 80px);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;text-align:center;white-space:nowrap;overflow:hidden}
-  .modal-dose{color:var(--muted);font-size:.92rem;margin-bottom:12px}
   .modal-desc{font-size:1rem;color:var(--muted);margin-bottom:14px;line-height:1.45}
   .modal-benefits{list-style:none;display:grid;gap:8px;margin-bottom:14px}
   .modal-benefits li{display:flex;align-items:flex-start;gap:11px;font-size:.94rem;font-weight:500}
@@ -264,19 +248,21 @@
 
 
   /* ---------- GOAL EXPLORER (replaces the old timeline) ---------- */
-  .goal-tabs{display:flex;flex-wrap:nowrap;gap:0;margin:0 auto 30px;max-width:900px;border:1px solid rgba(255,255,255,.3);border-radius:10px;overflow:hidden}
-  .goal-tab{flex:1 1 0;font-family:var(--mono);font-size:.76rem;letter-spacing:.02em;
-    background:rgba(255,255,255,.06);color:#fff;border:none;border-right:1px solid rgba(255,255,255,.18);
+  .goal-tabs{display:flex;flex-wrap:nowrap;gap:0;margin:0 auto 30px;max-width:900px;border-radius:0;overflow:hidden}
+  .goal-tab{flex:1 1 0;font-family:var(--body);font-size:.86rem;letter-spacing:.02em;font-weight:600;
+    background:transparent;color:var(--mint-bright);border:none;
     border-radius:0;padding:10px 18px;cursor:pointer;transition:.2s ease;display:flex;align-items:center;justify-content:center;gap:8px}
-  .goal-tab:last-child{border-right:none}
-  .goal-tab:hover{background:rgba(255,255,255,.13);color:#fff}
-  .goal-tab.active{background:var(--mint-bright);color:#fff;font-weight:700}
-  .goal-tab .gt-dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.6}
-  .goal-tab.active .gt-dot{opacity:1}
+  .goal-tab:hover{color:var(--mint-bright)}
+  .goal-tab.active{color:var(--mint-bright);font-weight:700;animation:tabPop .35s cubic-bezier(0.34,1.56,0.64,1)}
+  @keyframes tabPop{
+    0%{transform:scale(1)}
+    45%{transform:scale(1.1)}
+    100%{transform:scale(1)}
+  }
   @media(pointer:coarse){.goal-tab{min-height:44px}}
 
   .goal-panel{max-width:940px;margin:0 auto;background:var(--mint);
-    border:1px solid var(--mint);border-radius:22px;padding:30px 30px 26px;box-shadow:0 30px 60px -34px rgba(15,36,27,.45)}
+    border:1px solid var(--mint);border-radius:0;padding:30px 30px 26px;box-shadow:0 30px 60px -34px rgba(15,36,27,.45)}
   .goal-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:6px}
   .goal-head h3{font-family:var(--display);font-size:clamp(1.35rem,2.4vw,1.9rem);font-weight:700;color:#fff;line-height:1.15;text-shadow:0 2px 10px rgba(0,0,0,.3)}
   .goal-sync{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
@@ -301,7 +287,7 @@
     letter-spacing:.06em;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.3);margin:0 0 24px;padding:0 2px}
 
   .goal-body{display:grid;grid-template-columns:1.15fr 1fr;gap:26px;align-items:start}
-  .goal-milestone{background:var(--pine);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:20px 22px;min-height:150px}
+  .goal-milestone{background:var(--pine);border:1px solid rgba(255,255,255,.18);border-radius:0;padding:20px 22px;min-height:150px}
   .goal-milestone .ms-week{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;display:block;margin-bottom:8px}
   .goal-milestone h4{font-family:var(--display);font-size:1.1rem;color:#fff;margin-bottom:8px;line-height:1.2}
   .goal-milestone p{font-size:.88rem;color:#fff;line-height:1.6}
@@ -314,8 +300,8 @@
   .metric .m-name{font-family:var(--display);font-size:.98rem;line-height:1.3;color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.25)}
   .metric .m-val{font-family:var(--mono);font-size:.76rem;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.3)}
   .metric .m-bar{height:7px;border-radius:100px;background:rgba(18,47,38,.18);overflow:hidden}
-  .metric .m-fill{height:100%;width:0;border-radius:100px;
-    background:linear-gradient(90deg,var(--pine-deep),var(--pine));
+  .metric .m-fill{display:block;height:100%;width:0;border-radius:100px;
+    background:var(--pine);
     transition:width .5s cubic-bezier(0.22,1,0.36,1)}
 
   .goal-foot{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:34px;text-align:center}
@@ -339,7 +325,7 @@
   }
   .card .thumb{
     width:58%;height:230px;display:flex;align-items:center;justify-content:center;
-    margin:-4px auto 10px;
+    margin:-4px auto 2px;
     background:transparent;
     border-radius:0;
     box-shadow:none;
@@ -379,20 +365,20 @@
     0%   {transform:translate(-50%,-50%) scale(.4); opacity:.85}
     100% {transform:translate(-50%,-50%) scale(3.2); opacity:0}
   }
-  .card:hover{box-shadow:0 24px 48px -30px rgba(15,36,27,.4);position:relative;z-index:2}
   .card:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
-  .card .arrow{transition:.2s}
-  .card:hover .arrow{transform:translateX(3px)}
   .card .seq{display:inline-block;color:#fff;background:var(--pine);padding:4px 10px;border-radius:6px;margin-bottom:auto;align-self:center}
-  .card h3{font-family:var(--display);font-weight:700;font-size:1.22rem;margin:16px 0 6px;line-height:1.1;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+  .card .cat-label{font-size:.92rem;color:var(--muted);font-weight:700;margin:-10px 0 0}
+  .card h3{font-family:var(--display);font-weight:700;font-size:1.22rem;margin:24px 0 6px;line-height:1.1;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
   .card p{font-size:.92rem;color:var(--muted);margin-bottom:18px}
   .card .foot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:auto}
+  .card-actions{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:14px}
+  .card .btn.card-btn{width:100%;justify-content:center;padding:9px 10px;font-size:.76rem;border-radius:0;font-weight:700}
+  .card .btn.card-consult-btn{background:var(--mint-bright);color:var(--pine-deep)}
+  .card .btn.card-consult-btn:hover{background:var(--mint)}
+  .card .btn.card-learn-btn{background:transparent;color:var(--pine);border:1px solid var(--pine)}
+  .card .btn.card-learn-btn:hover{background:var(--pine);color:#fff}
   .card .price{font-weight:600;font-size:.98rem}
   .card .price span{font-weight:400;color:var(--muted);font-size:.82rem}
-  .card .arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.2s}
-  .card:hover .arrow{background:var(--pine);border-color:var(--pine)}
-  .card:hover .arrow svg{stroke:#fff}
-  .card .arrow svg{width:15px;height:15px;stroke:var(--pine);transition:.2s}
   .card .rx{position:absolute;top:20px;right:20px;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;
     background:var(--mint-bright);color:var(--pine);padding:4px 9px;border-radius:100px;font-weight:600}
 
@@ -400,12 +386,12 @@
   .search-wrap{position:relative;max-width:420px;margin:0 auto 22px;display:flex;align-items:center}
   .search-wrap svg{position:absolute;left:16px;width:17px;height:17px;color:var(--muted);pointer-events:none}
   .search-wrap input{
-    width:100%;padding:12px 40px 12px 44px;border-radius:100px;border:1px solid var(--line);
+    width:100%;padding:12px 40px 12px 44px;border-radius:0;border:1px solid var(--line);
     background:#fff;font-family:var(--body);font-size:.94rem;color:var(--ink);transition:.2s;
   }
   .search-wrap input:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px var(--mint-soft)}
   .search-wrap #clearSearch{
-    position:absolute;right:12px;width:22px;height:22px;border-radius:50%;border:none;
+    position:absolute;right:12px;width:22px;height:22px;border-radius:0;border:none;
     background:var(--sand);color:var(--muted);font-size:1rem;line-height:1;cursor:pointer;display:grid;place-items:center;
   }
   .search-wrap #clearSearch:hover{background:var(--mint-soft);color:var(--pine)}
@@ -415,7 +401,7 @@
   /* ---------- FILTER TABS (treatments catalog) ---------- */
   .filters{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:36px}
   .filter-btn{font-family:var(--mono);font-size:.78rem;letter-spacing:.02em;background:var(--pine);color:#fff;
-    border:1px solid var(--pine);border-radius:100px;padding:9px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.18s ease}
+    border:1px solid var(--pine);border-radius:0;padding:9px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.18s ease}
   @media(pointer:coarse){.filter-btn{padding:11px 18px;min-height:44px}}
   .filter-btn:hover{border-color:var(--pine-deep);background:var(--pine-deep);color:#fff}
   .filter-btn.active{background:var(--mint);border-color:var(--mint);color:#fff}
@@ -434,7 +420,7 @@
   #faq .copy-email{color:var(--pine);border-bottom-color:var(--pine)}
   #faq .copy-email:hover{color:var(--pine-deep);border-color:var(--pine-deep)}
   #how .sec-head h2{color:var(--ink)}
-  #how .sec-head .mono{color:var(--mint)}
+  #how .sec-head .mono{color:var(--pine)}
   #how .sec-head p{color:var(--muted)}
   #calculator .sec-head h2{color:#fff}
   #calculator .sec-head .mono{color:var(--mint)}
@@ -454,7 +440,7 @@
   #science{background:var(--pine-deep);padding-top:56px;padding-bottom:56px}
   /* ---------- SCIENCE ---------- */
   .science-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center}
-  .science-visual{border-radius:24px;background:var(--mint);border:1px solid var(--mint);position:relative;padding:34px;box-shadow:0 30px 60px -34px rgba(15,36,27,.45)}
+  .science-visual{border-radius:0;background:var(--mint);border:1px solid var(--mint);position:relative;padding:34px;box-shadow:0 30px 60px -34px rgba(15,36,27,.45)}
   .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
   .stat{background:var(--pine-deep);border:1px solid var(--pine-deep);border-radius:16px;padding:20px}
   .stat .num{font-family:var(--display);font-size:2.1rem;font-weight:500;color:#F4EEE1}
@@ -469,16 +455,6 @@
 
   /* ---------- TESTIMONIALS ---------- */
   #reviews{background:rgba(255,255,255,.4)}
-  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  .rev{border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column}
-  .stars{color:var(--mint);letter-spacing:2px;font-size:.9rem;margin-bottom:14px}
-  .rev q{font-family:var(--display);font-size:1.08rem;font-weight:400;line-height:1.4;quotes:none}
-  .rev .who{margin-top:auto;padding-top:20px;font-size:.86rem}
-  .rev .who b{display:block;font-weight:600}
-  .rev .who span{color:var(--muted)}
-
-  /* ---------- FAQ ---------- */
-  .faq-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:56px;align-items:start}
   .faq-item{border-bottom:1px solid var(--line)}
   .faq-q{width:100%;background:none;border:none;text-align:left;cursor:pointer;
     padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;
@@ -508,7 +484,7 @@
   .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
   /* ---------- CTA BAND ---------- */
-  .cta-band{background:var(--pine);border-radius:28px;padding:60px;text-align:center;position:relative;overflow:hidden}
+  .cta-band{background:var(--pine);border-radius:0;padding:60px;text-align:center;position:relative;overflow:hidden}
   .cta-band h2{font-family:var(--display);font-weight:500;font-size:clamp(2rem,3.6vw,2.8rem);color:#fff;line-height:1.08;letter-spacing:-.02em}
   .cta-band p{color:#A9C4B7;margin:16px auto 30px;max-width:480px;font-size:1.05rem}
 
@@ -516,7 +492,6 @@
   footer{background:var(--pine-deep);color:#B9CBC0;padding:70px 0 34px}
   .foot-top{display:grid;grid-template-columns:repeat(3,minmax(160px,200px));gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1);text-align:center;justify-items:center;justify-content:center;max-width:800px;margin:0 auto}
   footer .logo{color:#fff;margin-bottom:16px}
-  .foot-blurb{font-size:.92rem;color:#93AC9E;max-width:280px;margin:0 auto}
   .foot-col h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#B79A55;margin-bottom:18px}
   .foot-col a{display:block;font-size:.92rem;margin-bottom:11px;color:#CFE0D6}
   .foot-col a:hover{color:var(--mint)}
@@ -646,9 +621,9 @@
     html{scroll-behavior:auto}
     .reveal,.card{animation:none!important;opacity:1;transform:none!important}
     .goal-milestone.swap{animation:none!important}
+    .goal-tab.active{animation:none!important}
     .metric .m-fill{transition:none!important}
-  }
-</style>
+  }</style>
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -709,7 +684,6 @@
 <!-- MOVING BANNER -->
 <div class="marquee">
   <div class="marquee-track" id="marqueeTrack">
-    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><b>COA verified</b> on every batch</span>
     <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/></svg>US-licensed providers</span>
     <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke-linecap="round"/></svg>HIPAA-compliant platform</span>
     <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>503A/503B pharmacy partners</span>
@@ -738,7 +712,7 @@
     <p id="noResults" class="no-results" style="display:none">No treatments match your search. Try a different name or <button id="resetSearch" class="reset-link">clear the search</button>.</p>
     <div class="cards" id="cards"></div>
     <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--muted);margin:26px auto 0;line-height:1.7;max-width:940px;text-align:center">
-      Prescription required. Products are dispensed only after an online medical evaluation and, where applicable, a valid prescription; approval is not guaranteed. Certain peptides are compounded and are not approved by the U.S. Food and Drug Administration; statements about these products have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease. Every batch ships with a certificate of analysis (COA verified) confirming identity and purity. Prices reflect medication cost when prescribed. Individual results vary.
+      Prescription required. Products are dispensed only after an online medical evaluation and, where applicable, a valid prescription; approval is not guaranteed. Certain peptides are compounded and are not approved by the U.S. Food and Drug Administration; statements about these products have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease. Prices reflect medication cost when prescribed. Individual results vary.
     </p>
   </div>
 </section>
@@ -949,7 +923,6 @@
     </div>
     <div class="modal-price-row">
       <div class="amt" id="modalPrice"></div>
-      <span class="mono" style="color:var(--muted)">COA verified</span>
     </div>
     <p class="modal-total-note" id="modalTotalNote"></p>
     <div class="modal-cta">
@@ -1060,7 +1033,7 @@
     let activeCat = 'all';
     let query     = '';
 
-    const arrowSvg = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
 
     // ---- filter tabs ----
     function renderFilters(){
@@ -1104,11 +1077,14 @@
                  aria-label="View details for ${sanitize(p.name)}">
           <span class="rx">RX</span>
           <div class="thumb">${p.img ? `<img src="${p.img}" alt="${sanitize(p.name)} vial" loading="lazy">` : ''}</div>
+          <p class="cat-label">${sanitize(CAT[p.t] ? CAT[p.t].label : '')}</p>
           <h3>${sanitize(p.name)}</h3>
-          <p>${sanitize(p.dose)} &middot; ${sanitize(CAT[p.t] ? CAT[p.t].label : '')}</p>
           <div class="foot">
             <span class="price">from $${sanitize(p.price)}<span>/mo</span></span>
-            <span class="arrow">${arrowSvg}</span>
+          </div>
+          <div class="card-actions">
+            <a class="btn mintbtn card-btn card-consult-btn" href="#" data-placeholder="true">Start Consultation</a>
+            <button type="button" class="btn ghost card-btn card-learn-btn">Learn more</button>
           </div>
         </article>`).join('');
 
@@ -1150,21 +1126,8 @@
     // ── 4. CARD POP-OUT ANIMATION ────────────────────────────────────────────
     // pop-out animation on card hover
     function attachTilt(){
-      if(mq('(pointer: coarse)').matches) return;
-      cardsEl.querySelectorAll('.card').forEach(card=>{
-        card.addEventListener('mouseenter', ()=>{
-          card.style.transition = 'transform .2s cubic-bezier(0.34,1.56,0.64,1), box-shadow .2s ease';
-          card.style.transform = 'scale(1.04) translateY(-8px)';
-          card.style.boxShadow = '0 28px 56px -10px rgba(20,92,75,0.28), 0 8px 16px -6px rgba(20,92,75,0.15)';
-          card.style.zIndex = '2';
-        });
-        card.addEventListener('mouseleave', ()=>{
-          card.style.transition = 'transform .3s cubic-bezier(0.22,1,0.36,1), box-shadow .3s ease';
-          card.style.transform = '';
-          card.style.boxShadow = '';
-          card.style.zIndex = '';
-        });
-      });
+      // Hover "pop out" (scale + lift + shadow) removed per request.
+      // Left as a no-op so existing render() call sites don't need changes.
     }
 
     // ── vial pop-out click feedback ─────────────────────────────────────────
@@ -1193,11 +1156,29 @@
 
     // open product modal on card click / Enter / Space
     cardsEl.addEventListener('click', e=>{
+      // "Start Consultation" is a placeholder link for now (no real destination yet -
+      // TODO: replace href="#" with the real per-product/category consultation URL).
+      // Swallow the click so it doesn't jump the page or fall through to the card.
+      const consultBtn = e.target.closest('.card-consult-btn');
+      if(consultBtn){ e.preventDefault(); e.stopPropagation(); return; }
+
+      // "Learn more" opens the same product detail modal as clicking the card itself.
+      const learnBtn = e.target.closest('.card-learn-btn');
+      if(learnBtn){
+        e.preventDefault(); e.stopPropagation();
+        const c = learnBtn.closest('.card'); if(!c) return;
+        triggerCardClick(c, products[+c.dataset.id]);
+        return;
+      }
+
       const c = e.target.closest('.card'); if(!c) return;
       triggerCardClick(c, products[+c.dataset.id]);
     });
     cardsEl.addEventListener('keydown', e=>{
       if(e.key!=='Enter' && e.key!==' ') return;
+      // Let the browser's native click handling take these two buttons through
+      // the click listener above instead of double-firing here.
+      if(e.target.closest('.card-consult-btn') || e.target.closest('.card-learn-btn')) return;
       const c = e.target.closest('.card'); if(!c) return;
       e.preventDefault();
       triggerCardClick(c, products[+c.dataset.id]);
@@ -1470,9 +1451,6 @@
     const items = Array.from(track.children);
     items.forEach(function(el){ track.appendChild(el.cloneNode(true)); });
     let pos = 0, paused = false, speed = 0.5;
-    const marquee = track.closest('.marquee');
-    marquee.addEventListener('mouseenter', function(){ });
-    marquee.addEventListener('mouseleave', function(){ });
     function getHalfWidth(){
       var w = 0, gap = parseFloat(getComputedStyle(track).gap) || 52;
       for(var i = 0; i < items.length; i++) w += items[i].offsetWidth + gap;
@@ -1620,7 +1598,7 @@
     tabsEl.innerHTML = ORDER.map(k=>
       `<button class="goal-tab${k===current?' active':''}" type="button" role="tab" `
       + `data-goal="${k}" aria-selected="${k===current}">`
-      + `<span class="gt-dot"></span>${GOALS[k].label}</button>`
+      + `${GOALS[k].label}</button>`
     ).join('');
 
     metricsEl.innerHTML = GOALS[current].metrics.map((m,i)=>
