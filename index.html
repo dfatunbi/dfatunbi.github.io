@@ -1014,7 +1014,7 @@
       <div class="faq-item"><button class="faq-q">Which states do you serve?<span class="pm"></span></button><div class="faq-a"><p>Vitakey is currently available in all 50 states. Availability of specific programs can vary by state based on local regulations.</p></div></div>
       <div class="faq-item"><button class="faq-q">Can I cancel or pause?<span class="pm"></span></button><div class="faq-a"><p>Yes — memberships are flexible. You can pause, adjust, or cancel from your dashboard, and your care team is available between refills.</p></div></div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:20px;color:var(--muted)">Still unsure? Message our care team at <button id="copyEmail" class="copy-email">support@vitakey.com<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10" stroke-linecap="round"/></svg></button>.</p>
+    <p class="reveal" style="text-align:center;margin-top:20px;color:var(--muted)">Still unsure? Message our care team at <button id="copyEmail" class="copy-email">contact@vitakeywellness.com<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10" stroke-linecap="round"/></svg></button>.</p>
     <span id="copyToast" class="copy-toast" role="status" aria-live="polite">Copied to clipboard</span>
   </div>
 </section>
@@ -2198,7 +2198,7 @@
     if(!btn || !toast) return;
     let hideTimer;
     btn.addEventListener('click', async ()=>{
-      const email = 'support@vitakey.com';
+      const email = 'contact@vitakeywellness.com';
       try{
         if(navigator.clipboard && navigator.clipboard.writeText){
           await navigator.clipboard.writeText(email);
@@ -2209,9 +2209,9 @@
           document.execCommand('copy');
           document.body.removeChild(ta);
         }
-        toast.textContent = 'Copied to clipboard — support@vitakey.com';
+        toast.textContent = 'Copied to clipboard — contact@vitakeywellness.com';
       }catch(err){
-        toast.textContent = 'Could not copy — support@vitakey.com';
+        toast.textContent = 'Could not copy — contact@vitakeywellness.com';
       }
       toast.classList.add('show');
       clearTimeout(hideTimer);
