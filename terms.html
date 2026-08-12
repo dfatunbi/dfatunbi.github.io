@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- Security: Content Security Policy -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
 <!-- Security: Referrer Policy -->
 <meta name="referrer" content="no-referrer-when-downgrade">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -97,7 +97,7 @@
   .nav-links .link.active::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--mint-bright);border-radius:2px}
   .nav-cta{display:flex;align-items:center;gap:16px}
   .login{font-size:.92rem;font-weight:500}
-  button.link,button.login,button.logo{background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:inherit;text-align:inherit}
+  button.link,button.login,button.logo,button.foot-link,button.toc-link{background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:inherit;text-align:inherit}
   .btn{
     display:inline-flex;align-items:center;gap:8px;
     background:var(--pine);color:#fff;
@@ -605,7 +605,7 @@
   .foot-top{display:grid;grid-template-columns:repeat(3,minmax(160px,200px));gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1);text-align:center;justify-items:center;justify-content:center;max-width:800px;margin:0 auto}
   footer .logo{color:#fff;margin-bottom:16px}
   .foot-col h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#B79A55;margin-bottom:18px}
-  .foot-col a,.foot-col button.foot-link{display:block;width:100%;font-size:.92rem;margin-bottom:11px;color:#CFE0D6;position:relative;padding-left:0;transition:padding-left .18s ease,color .18s ease;background:none;border:none;padding-top:0;padding-bottom:0;margin-top:0;margin-right:0;cursor:pointer;font-family:inherit;text-align:inherit}
+  .foot-col a,.foot-col button.foot-link{display:block;width:100%;font-size:.92rem;margin-bottom:11px;color:#CFE0D6;position:relative;padding-left:0;transition:padding-left .18s ease,color .18s ease}
   .foot-col button.foot-link::before{content:"→";position:absolute;left:0;opacity:0;transform:translateX(-6px);transition:opacity .18s ease,transform .18s ease;color:var(--mint-bright)}
   .foot-col button.foot-link:hover{padding-left:16px}
   .foot-col button.foot-link:hover::before{opacity:1;transform:translateX(0)}
@@ -805,8 +805,8 @@
   .toc-card ol{list-style:none;columns:2;column-gap:26px;counter-reset:toc}
   .toc-card li{counter-increment:toc;font-size:.88rem;margin-bottom:8px;break-inside:avoid}
   .toc-card li::before{content:counter(toc)".";color:var(--pine);font-weight:600;margin-right:6px}
-  .toc-card a{color:var(--muted);border-bottom:none;font-weight:500}
-  .toc-card a:hover{color:var(--pine)}
+  .toc-card a,.toc-card button.toc-link{color:var(--muted);border-bottom:none;font-weight:500;font-size:inherit;text-align:left;display:inline}
+  .toc-card a:hover,.toc-card button.toc-link:hover{color:var(--pine)}
   .policy-body .terms-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:8px 0 18px}
   .policy-body .terms-list li{font-size:.94rem;color:var(--muted);line-height:1.6;padding-left:20px;position:relative}
   .policy-body .terms-list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--pine);opacity:.6}
@@ -873,32 +873,32 @@
       <div class="toc-card">
         <h3>On this page</h3>
         <ol>
-          <li><a href="#s1">Who we are</a></li>
-          <li><a href="#s2">Eligibility</a></li>
-          <li><a href="#s3">Your account</a></li>
-          <li><a href="#s4">Website content isn't medical advice</a></li>
-          <li><a href="#s5">Independent providers</a></li>
-          <li><a href="#s6">No guaranteed prescription</a></li>
-          <li><a href="#s7">Telehealth consent</a></li>
-          <li><a href="#s8">Independent pharmacies</a></li>
-          <li><a href="#s9">Compounded medications</a></li>
-          <li><a href="#s10">Medical emergencies</a></li>
-          <li><a href="#s11">Medication safety</a></li>
-          <li><a href="#s12">No guaranteed results</a></li>
-          <li><a href="#s13">Payment</a></li>
-          <li><a href="#s14">Refunds</a></li>
-          <li><a href="#s15">Subscriptions &amp; cancellation</a></li>
-          <li><a href="#s16">Shipping &amp; delivery</a></li>
-          <li><a href="#s17">Electronic communications</a></li>
-          <li><a href="#s18">Privacy</a></li>
-          <li><a href="#s19">Acceptable use</a></li>
-          <li><a href="#s20">Intellectual property</a></li>
-          <li><a href="#s21">Third-party services</a></li>
-          <li><a href="#s22">Disclaimers</a></li>
-          <li><a href="#s23">Limitation of liability</a></li>
-          <li><a href="#s24">Disputes &amp; governing law</a></li>
-          <li><a href="#s25">Changes to these Terms</a></li>
-          <li><a href="#s26">Contact us</a></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s1">Who we are</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s2">Eligibility</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s3">Your account</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s4">Website content isn't medical advice</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s5">Independent providers</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s6">No guaranteed prescription</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s7">Telehealth consent</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s8">Independent pharmacies</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s9">Compounded medications</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s10">Medical emergencies</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s11">Medication safety</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s12">No guaranteed results</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s13">Payment</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s14">Refunds</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s15">Subscriptions &amp; cancellation</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s16">Shipping &amp; delivery</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s17">Electronic communications</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s18">Privacy</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s19">Acceptable use</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s20">Intellectual property</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s21">Third-party services</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s22">Disclaimers</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s23">Limitation of liability</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s24">Disputes &amp; governing law</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s25">Changes to these Terms</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="s26">Contact us</button></li>
         </ol>
       </div>
 
@@ -1039,7 +1039,7 @@
       <div class="policy-cta">
         <div>
           <h3>Still have questions?</h3>
-          <p>Our care team is available Monday – Friday, 8am – 5pm CT, by phone, chat, or email.</p>
+          <p>Our care team is available Monday – Friday, 8am – 5pm CT, by phone or email.</p>
         </div>
         <a class="btn" href="index.html#faq">Contact support</a>
       </div>
@@ -1138,6 +1138,16 @@
     });
     update();
   })();
+
+  // ── Smooth-scroll for same-page jump links (TOC, etc.) ────────────────────
+  // Uses buttons with data-scroll-to instead of <a href="#..."> so same-page
+  // jumps aren't misread as external navigation inside the preview sandbox.
+  document.querySelectorAll('[data-scroll-to]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = document.getElementById(btn.dataset.scrollTo);
+      if(target) target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
 
   // ── Copy support email to clipboard ─────────────────────────────────────
   (function(){

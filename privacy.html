@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- Security: Content Security Policy -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
 <!-- Security: Referrer Policy -->
 <meta name="referrer" content="no-referrer-when-downgrade">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -97,7 +97,7 @@
   .nav-links .link.active::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--mint-bright);border-radius:2px}
   .nav-cta{display:flex;align-items:center;gap:16px}
   .login{font-size:.92rem;font-weight:500}
-  button.link,button.login,button.logo{background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:inherit;text-align:inherit}
+  button.link,button.login,button.logo,button.foot-link,button.toc-link{background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:inherit;text-align:inherit}
   .btn{
     display:inline-flex;align-items:center;gap:8px;
     background:var(--pine);color:#fff;
@@ -605,7 +605,7 @@
   .foot-top{display:grid;grid-template-columns:repeat(3,minmax(160px,200px));gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1);text-align:center;justify-items:center;justify-content:center;max-width:800px;margin:0 auto}
   footer .logo{color:#fff;margin-bottom:16px}
   .foot-col h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#B79A55;margin-bottom:18px}
-  .foot-col a,.foot-col button.foot-link{display:block;width:100%;font-size:.92rem;margin-bottom:11px;color:#CFE0D6;position:relative;padding-left:0;transition:padding-left .18s ease,color .18s ease;background:none;border:none;padding-top:0;padding-bottom:0;margin-top:0;margin-right:0;cursor:pointer;font-family:inherit;text-align:inherit}
+  .foot-col a,.foot-col button.foot-link{display:block;width:100%;font-size:.92rem;margin-bottom:11px;color:#CFE0D6;position:relative;padding-left:0;transition:padding-left .18s ease,color .18s ease}
   .foot-col button.foot-link::before{content:"→";position:absolute;left:0;opacity:0;transform:translateX(-6px);transition:opacity .18s ease,transform .18s ease;color:var(--mint-bright)}
   .foot-col button.foot-link:hover{padding-left:16px}
   .foot-col button.foot-link:hover::before{opacity:1;transform:translateX(0)}
@@ -805,8 +805,8 @@
   .toc-card ol{list-style:none;columns:2;column-gap:26px;counter-reset:toc}
   .toc-card li{counter-increment:toc;font-size:.88rem;margin-bottom:8px;break-inside:avoid}
   .toc-card li::before{content:counter(toc)".";color:var(--pine);font-weight:600;margin-right:6px}
-  .toc-card a{color:var(--muted);border-bottom:none;font-weight:500}
-  .toc-card a:hover{color:var(--pine)}
+  .toc-card a,.toc-card button.toc-link{color:var(--muted);border-bottom:none;font-weight:500;font-size:inherit;text-align:left;display:inline}
+  .toc-card a:hover,.toc-card button.toc-link:hover{color:var(--pine)}
   .policy-body .terms-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:8px 0 18px}
   .policy-body .terms-list li{font-size:.94rem;color:var(--muted);line-height:1.6;padding-left:20px;position:relative}
   .policy-body .terms-list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--pine);opacity:.6}
@@ -873,22 +873,22 @@
       <div class="toc-card">
         <h3>On this page</h3>
         <ol>
-          <li><a href="#p1">Scope of this policy</a></li>
-          <li><a href="#p2">Information we collect</a></li>
-          <li><a href="#p3">How we use information</a></li>
-          <li><a href="#p4">How we share information</a></li>
-          <li><a href="#p5">Health information &amp; HIPAA</a></li>
-          <li><a href="#p6">Cookies &amp; tracking technologies</a></li>
-          <li><a href="#p7">Text &amp; email communications</a></li>
-          <li><a href="#p8">Data retention</a></li>
-          <li><a href="#p9">How we protect your information</a></li>
-          <li><a href="#p10">Your privacy choices &amp; rights</a></li>
-          <li><a href="#p11">California privacy rights</a></li>
-          <li><a href="#p12">Children's privacy</a></li>
-          <li><a href="#p13">Third-party links &amp; services</a></li>
-          <li><a href="#p14">International visitors</a></li>
-          <li><a href="#p15">Changes to this policy</a></li>
-          <li><a href="#p16">Contact us</a></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p1">Scope of this policy</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p2">Information we collect</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p3">How we use information</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p4">How we share information</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p5">Health information &amp; HIPAA</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p6">Cookies &amp; tracking technologies</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p7">Text &amp; email communications</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p8">Data retention</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p9">How we protect your information</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p10">Your privacy choices &amp; rights</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p11">California privacy rights</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p12">Children's privacy</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p13">Third-party links &amp; services</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p14">International visitors</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p15">Changes to this policy</button></li>
+          <li><button type="button" class="toc-link" data-scroll-to="p16">Contact us</button></li>
         </ol>
       </div>
 
@@ -901,7 +901,7 @@
         <li><strong>Account information</strong> — your name, email, phone number, date of birth, and shipping address</li>
         <li><strong>Health intake information</strong> — the medical history, current medications, allergies, symptoms, and goals you share as part of a consultation, along with anything you send your provider through messaging</li>
         <li><strong>Payment information</strong> — billing details processed through our payment provider; we don't store full card numbers ourselves</li>
-        <li><strong>Communications</strong> — messages you send our support team, chat transcripts, and call notes</li>
+        <li><strong>Communications</strong> — messages you send our support team and call notes</li>
         <li><strong>Device &amp; usage information</strong> — IP address, browser type, pages viewed, and general interaction data collected automatically when you use the website</li>
       </ul>
 
@@ -978,7 +978,7 @@
       <div class="policy-cta">
         <div>
           <h3>Still have questions?</h3>
-          <p>Our care team is available Monday – Friday, 8am – 5pm CT, by phone, chat, or email.</p>
+          <p>Our care team is available Monday – Friday, 8am – 5pm CT, by phone or email.</p>
         </div>
         <a class="btn" href="index.html#faq">Contact support</a>
       </div>
@@ -1077,6 +1077,16 @@
     });
     update();
   })();
+
+  // ── Smooth-scroll for same-page jump links (TOC, etc.) ────────────────────
+  // Uses buttons with data-scroll-to instead of <a href="#..."> so same-page
+  // jumps aren't misread as external navigation inside the preview sandbox.
+  document.querySelectorAll('[data-scroll-to]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = document.getElementById(btn.dataset.scrollTo);
+      if(target) target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
 
   // ── Copy support email to clipboard ─────────────────────────────────────
   (function(){
