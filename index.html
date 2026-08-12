@@ -1060,18 +1060,18 @@
       </div>
       <div class="foot-col">
         <h4>Company</h4>
-        <a href="#how">How it works</a>
-        <a href="#timeline">Goals</a>
-        <a href="#science">The science</a>
-        <a href="#faq">FAQ</a>
+        <button type="button" class="foot-link" data-scroll-to="how">How it works</button>
+        <button type="button" class="foot-link" data-scroll-to="timeline">Goals</button>
+        <button type="button" class="foot-link" data-scroll-to="science">The science</button>
+        <button type="button" class="foot-link" data-scroll-to="faq">FAQ</button>
       </div>
       <div class="foot-col">
         <h4>Support</h4>
-        <a href="#faq">Contact</a>
-        <a href="#">Log in</a>
+        <button type="button" class="foot-link" data-scroll-to="faq">Contact</button>
+        <button type="button" class="foot-link">Log in</button>
         <a href="refund-and-returns.html">Refunds &amp; Cancellations</a>
         <a href="terms.html">Terms of service</a>
-        <a href="#">Privacy policy</a>
+        <a href="privacy.html">Privacy policy</a>
       </div>
     </div>
 
@@ -1396,6 +1396,21 @@
     });
 
     render();
+
+    // ---- support pre-filtering via ?cat= on page load (used by footer links on other pages) ----
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const wantedCat = params.get('cat');
+      if(wantedCat && cats.some(c=>c.key===wantedCat)){
+        activeCat = wantedCat;
+        renderFilters();
+        render();
+        requestAnimationFrame(()=>{
+          const target = document.getElementById('treatments');
+          if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    })();
 
     // ── 5. PRODUCT DETAIL MODAL ──────────────────────────────────────────────
     const modal = document.getElementById('productModal');

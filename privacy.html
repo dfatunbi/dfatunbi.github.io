@@ -605,8 +605,11 @@
   .foot-top{display:grid;grid-template-columns:repeat(3,minmax(160px,200px));gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1);text-align:center;justify-items:center;justify-content:center;max-width:800px;margin:0 auto}
   footer .logo{color:#fff;margin-bottom:16px}
   .foot-col h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#B79A55;margin-bottom:18px}
-  .foot-col a{display:block;font-size:.92rem;margin-bottom:11px;color:#CFE0D6}
-  .foot-col a:hover{color:var(--mint)}
+  .foot-col a,.foot-col button.foot-link{display:block;width:100%;font-size:.92rem;margin-bottom:11px;color:#CFE0D6;position:relative;padding-left:0;transition:padding-left .18s ease,color .18s ease;background:none;border:none;padding-top:0;padding-bottom:0;margin-top:0;margin-right:0;cursor:pointer;font-family:inherit;text-align:inherit}
+  .foot-col button.foot-link::before{content:"→";position:absolute;left:0;opacity:0;transform:translateX(-6px);transition:opacity .18s ease,transform .18s ease;color:var(--mint-bright)}
+  .foot-col button.foot-link:hover{padding-left:16px}
+  .foot-col button.foot-link:hover::before{opacity:1;transform:translateX(0)}
+  .foot-col a:hover,.foot-col button.foot-link:hover{color:var(--mint)}
   .disclaimer{font-size:.76rem;color:#7F9488;line-height:1.7;margin:34px auto;max-width:900px;text-align:center}
   .foot-bottom{display:flex;justify-content:center;align-items:center;text-align:center;flex-wrap:wrap;gap:14px;font-size:.82rem;color:#7F9488;padding-top:26px;border-top:1px solid rgba(255,255,255,.1)}
 
@@ -1011,7 +1014,7 @@
       <div class="foot-col">
         <h4>Support</h4>
         <a href="index.html#faq">Contact</a>
-        <a href="#">Log in</a>
+        <button type="button" class="foot-link">Log in</button>
         <a href="refund-and-returns.html">Refunds &amp; Cancellations</a>
         <a href="terms.html">Terms of service</a>
         <a href="privacy.html">Privacy policy</a>
