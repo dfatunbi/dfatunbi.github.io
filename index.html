@@ -97,7 +97,7 @@
   .nav-links .link.active::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--mint-bright);border-radius:2px}
   .nav-cta{display:flex;align-items:center;gap:16px}
   .login{font-size:.92rem;font-weight:500}
-  button.link,button.login,button.logo{background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:inherit;text-align:inherit}
+  button.link,button.login,button.logo,button.foot-link{background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:inherit;text-align:inherit}
   .btn{
     display:inline-flex;align-items:center;gap:8px;
     background:var(--pine);color:#fff;
@@ -538,6 +538,7 @@
   #calculator .sec-head .mono{color:var(--mint)}
   #calculator .sec-head p{color:#9FC2B0}
   .steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:20px}
+  .steps.steps-5{grid-template-columns:repeat(5,1fr);gap:22px}
   .chain-line{position:absolute;top:22px;left:6%;right:6%;height:2px;
     background:linear-gradient(90deg,transparent,rgba(201,162,39,.5) 12%,rgba(201,162,39,.5) 88%,transparent);z-index:0;overflow:hidden}
   .chain-fill{position:absolute;top:0;left:0;height:100%;width:0;background:var(--mint-bright);transition:width 1.4s ease}
@@ -548,6 +549,11 @@
   .step.on .node{background:var(--pine);border-color:var(--pine);color:#fff;box-shadow:0 0 0 6px rgba(31,77,62,.15)}
   .step h3{font-family:var(--display);font-weight:500;font-size:1.28rem;margin-bottom:9px;color:var(--ink)}
   .step p{font-size:.92rem;color:var(--muted);line-height:1.55}
+  .steps-5 .step{text-align:center}
+  .steps-5 .node{width:44px;height:44px;font-size:.9rem;margin:0 auto 18px}
+  .steps-5 .chain-line{top:22px}
+  .steps-5 .step h3{font-size:1.16rem;margin-bottom:8px}
+  .steps-5 .step p{font-size:.9rem;line-height:1.52}
 
   #science{background:var(--pine-deep);padding-top:56px;padding-bottom:56px}
   /* ---------- SCIENCE ---------- */
@@ -605,8 +611,11 @@
   .foot-top{display:grid;grid-template-columns:repeat(3,minmax(160px,200px));gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1);text-align:center;justify-items:center;justify-content:center;max-width:800px;margin:0 auto}
   footer .logo{color:#fff;margin-bottom:16px}
   .foot-col h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#B79A55;margin-bottom:18px}
-  .foot-col a{display:block;font-size:.92rem;margin-bottom:11px;color:#CFE0D6}
-  .foot-col a:hover{color:var(--mint)}
+  .foot-col a,.foot-col button.foot-link{display:block;width:100%;font-size:.92rem;margin-bottom:11px;color:#CFE0D6;position:relative;padding-left:0;transition:padding-left .18s ease,color .18s ease}
+  .foot-col button.foot-link::before{content:"→";position:absolute;left:0;opacity:0;transform:translateX(-6px);transition:opacity .18s ease,transform .18s ease;color:var(--mint-bright)}
+  .foot-col button.foot-link:hover{padding-left:16px}
+  .foot-col button.foot-link:hover::before{opacity:1;transform:translateX(0)}
+  .foot-col a:hover,.foot-col button.foot-link:hover{color:var(--mint)}
   .disclaimer{font-size:.76rem;color:#7F9488;line-height:1.7;margin:34px auto;max-width:900px;text-align:center}
   .foot-bottom{display:flex;justify-content:center;align-items:center;text-align:center;flex-wrap:wrap;gap:14px;font-size:.82rem;color:#7F9488;padding-top:26px;border-top:1px solid rgba(255,255,255,.1)}
 
@@ -646,8 +655,11 @@
     .ft-2{bottom:40%}
     .science-grid,.faq-grid{grid-template-columns:1fr;gap:34px}
     .cards,.revs{grid-template-columns:1fr 1fr}
-    .steps{grid-template-columns:1fr 1fr;gap:34px}
+    .steps,.steps.steps-5{grid-template-columns:1fr 1fr;gap:34px}
     .chain-line{display:none}
+    .steps-5 .node{width:46px;height:46px;font-size:.95rem;margin:0 auto 22px}
+    .steps-5 .step h3{font-size:1.28rem;margin-bottom:9px}
+    .steps-5 .step p{font-size:.92rem;line-height:1.55}
     .foot-top{grid-template-columns:1fr 1fr}
     .menu-toggle{display:block}
     .cta-band{padding:44px 26px}
@@ -691,7 +703,7 @@
   }
   @media(max-width:560px){
     .wrap{padding:0 18px}
-    .cards,.revs,.steps,.stat-row{grid-template-columns:1fr}
+    .cards,.revs,.steps,.steps.steps-5,.stat-row{grid-template-columns:1fr}
     .foot-top{grid-template-columns:1fr;gap:30px}
     section{padding:60px 0}
     .trust-inner{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px}
@@ -960,14 +972,18 @@
   <div class="wrap">
     <div class="sec-head reveal" style="margin:0 auto 44px;text-align:center">
       <span class="mono">// the process</span>
-      <h2>Three steps, one continuous chain of care.</h2>
+      <h2>Five steps, one continuous chain of care.</h2>
       <p style="margin-left:auto;margin-right:auto">No clinics, no waiting rooms. From intake to refills, your protocol stays linked to a real provider.</p>
     </div>
-    <div class="steps" id="stepsWrap">
-      <div class="chain-line"><div class="chain-fill" id="chainFill"></div></div>
-      <div class="step reveal"><div class="node">01</div><h3>Consult</h3><p>Answer a focused intake about your health history and goals, then a US-licensed clinician reviews it and decides whether treatment is right for you.</p></div>
-      <div class="step reveal"><div class="node">02</div><h3>Compounded &amp; shipped</h3><p>If approved, your prescription is filled by a licensed pharmacy and shipped free in discreet packaging.</p></div>
-      <div class="step reveal"><div class="node">03</div><h3>Ongoing care</h3><p>Message your care team anytime, track progress, and adjust dosing with clinical guidance.</p></div>
+    <div id="stepsWrap">
+      <div class="steps steps-5">
+        <div class="chain-line"><div class="chain-fill"></div></div>
+        <div class="step reveal"><div class="node">01</div><h3>Select your treatment</h3><p>Browse the formulary and choose the program that matches your goal.</p></div>
+        <div class="step reveal"><div class="node">02</div><h3>Complete your intake</h3><p>Answer a focused questionnaire about your health history and goals. Labs or a live consult may be required depending on treatment.</p></div>
+        <div class="step reveal"><div class="node">03</div><h3>Provider review</h3><p>A US-licensed clinician reviews your submission and decides whether treatment is appropriate. Approval is never guaranteed.</p></div>
+        <div class="step reveal"><div class="node">04</div><h3>Compounded &amp; shipped</h3><p>If approved, your prescription is filled by a licensed pharmacy and shipped free in discreet packaging. You're only charged once it's approved.</p></div>
+        <div class="step reveal"><div class="node">05</div><h3>Ongoing care</h3><p>Message your care team anytime, track progress, and adjust dosing with clinical guidance.</p></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1036,11 +1052,11 @@
     <div class="foot-top">
       <div class="foot-col">
         <h4>Programs</h4>
-        <a href="#treatments">Weight &amp; Metabolic</a>
-        <a href="#treatments">Recovery &amp; Repair</a>
-        <a href="#treatments">Longevity &amp; Energy</a>
-        <a href="#treatments">GH Support</a>
-        <a href="#treatments">Skin, Hair &amp; Collagen</a>
+        <button type="button" class="foot-link" data-scroll-to="treatments" data-filter-cat="weight">Weight Loss</button>
+        <button type="button" class="foot-link" data-scroll-to="treatments" data-filter-cat="recovery">Recovery</button>
+        <button type="button" class="foot-link" data-scroll-to="treatments" data-filter-cat="longevity">Longevity</button>
+        <button type="button" class="foot-link" data-scroll-to="treatments" data-filter-cat="gh">Growth Hormone</button>
+        <button type="button" class="foot-link" data-scroll-to="treatments" data-filter-cat="skin">Skin &amp; Hair</button>
       </div>
       <div class="foot-col">
         <h4>Company</h4>
@@ -2173,20 +2189,20 @@
   // "How it works" — sequential step highlight + chain fill, once in view
   (function(){
     const wrap = document.getElementById('stepsWrap');
-    const fill = document.getElementById('chainFill');
+    const fills = wrap ? wrap.querySelectorAll('.chain-fill') : [];
     if(!wrap || !('IntersectionObserver' in window)) return;
     let done = false;
     const io = new IntersectionObserver(entries=>{
       entries.forEach(e=>{
         if(e.isIntersecting && !done){
           done = true;
-          if(fill) fill.style.width = '100%';
+          fills.forEach(fill=>{ fill.style.width = '100%'; });
           const steps = wrap.querySelectorAll('.step');
           steps.forEach((s,i)=>setTimeout(()=>s.classList.add('on'), 200 + i*260));
           io.disconnect();
         }
       });
-    }, {threshold:.35});
+    }, {threshold:.2});
     io.observe(wrap);
   })();
 
@@ -2273,6 +2289,10 @@
   // sandbox preview doesn't treat same-page jumps as external navigation)
   document.querySelectorAll('[data-scroll-to]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
+      if(btn.dataset.filterCat){
+        const filterBtn = document.querySelector(`.filter-btn[data-cat="${btn.dataset.filterCat}"]`);
+        if(filterBtn) filterBtn.click();
+      }
       if(btn.dataset.scrollTo === 'top'){
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
