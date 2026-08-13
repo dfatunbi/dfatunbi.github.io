@@ -1575,7 +1575,16 @@
 
     document.getElementById('modalClose').addEventListener('click', closeProductModal);
     document.getElementById('modalCloseBtn2').addEventListener('click', closeProductModal);
-    modalCtaBtn.addEventListener('click', closeProductModal);
+    modalCtaBtn.addEventListener('click', function(e){
+      // Tirzepatide, 3-month plan → send the user to the real consultation intake
+      // instead of just scrolling the page / closing the modal.
+      if(currentModalProduct && currentModalProduct.name === 'Tirzepatide' && modalPlan && modalPlan.value === '3'){
+        e.preventDefault();
+        window.location.href = 'https://vitakey.fusehealth.com/programs/f5a8251a-1943-449e-9f2b-3c3f54cc86b0';
+        return;
+      }
+      closeProductModal();
+    });
     modal.addEventListener('click', e=>{ if(e.target===modal) closeProductModal(); });
     document.addEventListener('keydown', e=>{
       if(e.key==='Escape' && modal.classList.contains('open')) closeProductModal();
