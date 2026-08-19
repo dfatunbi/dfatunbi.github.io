@@ -180,10 +180,10 @@
     .hero.has-bg .hero-grid{max-width:100%}
   }
 
-  /* moving banner (marquee) */
+  /* static trust banner */
   .marquee{border-top:1px solid var(--pine);border-bottom:1px solid var(--pine);background:var(--pine);overflow:hidden;position:relative}
-  .marquee-track{display:flex;align-items:center;gap:52px;white-space:nowrap;width:max-content;padding:20px 0}
-  .marquee-track span{display:inline-flex;align-items:center;gap:9px;font-size:.88rem;font-weight:500;color:rgba(255,255,255,0.75);flex:none}
+  .marquee-track{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:28px 40px;width:100%;padding:8px 16px}
+  .marquee-track span{display:inline-flex;align-items:center;gap:9px;font-size:.88rem;font-weight:500;color:rgba(255,255,255,0.75);flex:none;white-space:nowrap}
   .marquee-track span svg{width:16px;height:16px;color:var(--mint-bright);flex:none}
   .marquee-track span b{color:#fff;font-weight:600}
 
@@ -1758,26 +1758,7 @@
   })();
 
   // ── 10. MARQUEE BANNER ───────────────────────────────────────────────────
-  // JS-powered marquee (works regardless of CSS animation/reduced-motion settings)
-  (function(){
-    const track = document.getElementById('marqueeTrack');
-    if (!track) return;
-    const items = Array.from(track.children);
-    items.forEach(function(el){ track.appendChild(el.cloneNode(true)); });
-    let pos = 0, paused = false, speed = 0.5;
-    function getHalfWidth(){
-      var w = 0, gap = parseFloat(getComputedStyle(track).gap) || 52;
-      for(var i = 0; i < items.length; i++) w += items[i].offsetWidth + gap;
-      return w;
-    }
-    var halfWidth = getHalfWidth();
-    window.addEventListener('resize', function(){ halfWidth = getHalfWidth(); });
-    function tick(){
-      if(!paused){ pos -= speed; if(Math.abs(pos) >= halfWidth) pos = 0; track.style.transform = 'translateX(' + pos + 'px)'; }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  })();
+  // Auto-scroll animation removed — banner is now static.
 
   // ── 11. SCROLL PROGRESS BAR ──────────────────────────────────────────────
   (function(){
