@@ -1564,10 +1564,17 @@
       modalDesc.textContent = p.desc;
       modalBenefits.innerHTML = cat.benefits.map(b=>`<li><span class="tick">${tickSvg}</span>${b}</li>`).join('');
       currentModalProduct = p;
-      selectedPlanMonths = 3;
+      const isBremelanotide = p.name === 'Bremelanotide (PT-141)';
+      selectedPlanMonths = isBremelanotide ? 1 : 3;
       if(modalPlanToggle){
         modalPlanToggle.querySelectorAll('.plan-btn').forEach(b=>{
-          b.classList.toggle('active', Number(b.dataset.months) === 3);
+          const months = Number(b.dataset.months);
+          if(isBremelanotide){
+            b.style.display = months === 3 ? 'none' : '';
+          } else {
+            b.style.display = '';
+          }
+          b.classList.toggle('active', months === selectedPlanMonths);
         });
       }
       renderModalPrice();
@@ -1607,32 +1614,46 @@
     document.getElementById('modalClose').addEventListener('click', closeProductModal);
     document.getElementById('modalCloseBtn2').addEventListener('click', closeProductModal);
     modalCtaBtn.addEventListener('click', function(e){
-      // Tirzepatide, 1-month plan → send the user to the real consultation intake
-      // instead of just scrolling the page / closing the modal.
-      if(currentModalProduct && currentModalProduct.name === 'Tirzepatide' && selectedPlanMonths === 1){
+      // Compounded Tirzepatide, 1-month plan
+      if(currentModalProduct && currentModalProduct.name === 'Compounded Tirzepatide' && selectedPlanMonths === 1){
         e.preventDefault();
-        window.location.href = 'https://vitakey.fusehealth.com/programs/e8f0e6b9-95db-40df-838b-f8b263d69796';
+        window.location.href = 'https://app.vitakeywellness.com/programs/69247faf-8d36-4fce-a33b-3855b311b8f8';
         return;
       }
-      // Tirzepatide, 3-month plan → send the user to the real consultation intake
-      // instead of just scrolling the page / closing the modal.
-      if(currentModalProduct && currentModalProduct.name === 'Tirzepatide' && selectedPlanMonths === 3){
+      // Compounded Tirzepatide, 3-month plan
+      if(currentModalProduct && currentModalProduct.name === 'Compounded Tirzepatide' && selectedPlanMonths === 3){
         e.preventDefault();
-        window.location.href = 'https://vitakey.fusehealth.com/programs/f5a8251a-1943-449e-9f2b-3c3f54cc86b0';
+        window.location.href = 'https://app.vitakeywellness.com/programs/af332244-6d10-45d5-bac0-e63e7b6f86ac';
         return;
       }
-      // Glutathione, 1-month plan → send the user to the real consultation intake
-      // instead of just scrolling the page / closing the modal.
+      // NAD+, 1-month plan
+      if(currentModalProduct && currentModalProduct.name === 'NAD+' && selectedPlanMonths === 1){
+        e.preventDefault();
+        window.location.href = 'https://app.vitakeywellness.com/programs/075fa9ba-8708-4e4f-b671-4ec9d0507a1c';
+        return;
+      }
+      // NAD+, 3-month plan
+      if(currentModalProduct && currentModalProduct.name === 'NAD+' && selectedPlanMonths === 3){
+        e.preventDefault();
+        window.location.href = 'https://app.vitakeywellness.com/programs/f6435d64-1c36-4f1b-9a44-88460b9fccb2';
+        return;
+      }
+      // Bremelanotide (PT-141), 1-month plan (only plan offered)
+      if(currentModalProduct && currentModalProduct.name === 'Bremelanotide (PT-141)' && selectedPlanMonths === 1){
+        e.preventDefault();
+        window.location.href = 'https://app.vitakeywellness.com/programs/e32c18db-1e21-4291-b66d-b2b1a4dfb376';
+        return;
+      }
+      // Glutathione, 1-month plan
       if(currentModalProduct && currentModalProduct.name === 'Glutathione' && selectedPlanMonths === 1){
         e.preventDefault();
         window.location.href = 'https://app.vitakeywellness.com/programs/90202bff-7fdd-419a-bab4-36240311f0a4';
         return;
       }
-      // Glutathione, 3-month plan → send the user to the real consultation intake
-      // instead of just scrolling the page / closing the modal.
+      // Glutathione, 3-month plan
       if(currentModalProduct && currentModalProduct.name === 'Glutathione' && selectedPlanMonths === 3){
         e.preventDefault();
-        window.location.href = 'https://app.vitakeywellness.com/programs/f9dcef4c-648d-4249-b509-353bec958c94';
+        window.location.href = 'https://app.vitakeywellness.com/programs/d9cbb3e8-802a-4e1d-8961-de91dfce2f8e';
         return;
       }
       closeProductModal();
