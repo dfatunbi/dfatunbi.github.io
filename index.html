@@ -112,8 +112,8 @@ a:focus-visible,button:focus-visible{outline:2.5px solid var(--honey-deep);outli
   .keyhole-stage{position:relative;display:grid;place-items:center;min-height:560px}
 .keyhole{
     width:min(400px,86%);aspect-ratio:400/560;position:relative;
-    -webkit-clip-path:path('M200 0C89.5 0 0 89.5 0 200c0 74.6 40.8 139.6 101.3 174.1L58 560h284l-43.3-185.9C359.2 339.6 400 274.6 400 200 400 89.5 310.5 0 200 0Z');
-            clip-path:path('M200 0C89.5 0 0 89.5 0 200c0 74.6 40.8 139.6 101.3 174.1L58 560h284l-43.3-185.9C359.2 339.6 400 274.6 400 200 400 89.5 310.5 0 200 0Z');
+    -webkit-clip-path:url(#heroKeyholeClip);
+            clip-path:url(#heroKeyholeClip);
     background:#1F4D3E;
     display:grid;place-items:center;overflow:hidden;
     animation:breathe 9s ease-in-out infinite;
@@ -140,7 +140,7 @@ a:focus-visible,button:focus-visible{outline:2.5px solid var(--honey-deep);outli
 .hero{padding-top:48px}
 .o2{right:0}
 .hero h1{font-size:clamp(26px,7vw,44px)}}
-@supports not (clip-path: path('M0 0H1V1H0Z')){
+@supports not (clip-path: url(#a)){
     .keyhole{border-radius:50% 50% 38% 38%/46% 46% 30% 30%}
   }
 /* ── unlock selector ── */
@@ -499,6 +499,13 @@ details p{margin:0;padding:0 46px 26px 2px;color:var(--ink-2);font-size:15px;lin
 .rv.in{opacity:1;transform:none}</style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="heroKeyholeClip" clipPathUnits="objectBoundingBox">
+      <path d="M0.5 0 C0.22375 0 0 0.159821 0 0.357143 c0 0.133214 0.102 0.249286 0.25325 0.310893 L0.145 1 h0.71 l-0.10825 -0.331964 C0.898 0.606429 1 0.490357 1 0.357143 1 0.159821 0.77625 0 0.5 0 Z"/>
+    </clipPath>
+  </defs>
+</svg>
 
 <div class="ribbon"><div class="ribbon-track" id="ribbon"></div></div>
 
