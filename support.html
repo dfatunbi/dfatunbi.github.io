@@ -602,8 +602,8 @@ html{scroll-behavior:auto}
       <div class="support-split">
         <div class="support-form-wrap" style="margin-bottom:0">
           <h2>Still need us?</h2>
-          <p class="wrap-p">Fill this out and it'll open a pre-filled email to our support team — nothing gets sent without you hitting send in your own inbox.</p>
-          <form class="support-form" id="supportForm">
+          <p class="wrap-p">Send us a message and a real person on our care team will reply — usually within one business day.</p>
+          <form class="support-form" id="supportForm" action="https://formspree.io/f/mvkoogwq" method="POST">
             <div>
               <label for="sfName">Name</label>
               <input type="text" id="sfName" name="name" required>
@@ -626,9 +626,11 @@ html{scroll-behavior:auto}
               <label for="sfMessage">Message</label>
               <textarea id="sfMessage" name="message" required></textarea>
             </div>
-            <button type="submit" class="btn">Open email to send</button>
+            <input type="hidden" name="_subject" value="New support message from vitakeywellness.com">
+            <button type="submit" class="btn">Send message</button>
           </form>
-          <p class="support-status" id="sfStatus">Thanks — your email app should be opening now.</p>
+          <p class="support-status" id="sfStatus">Thanks — your message is on its way. We'll get back to you soon.</p>
+          <p class="support-status" id="sfError" style="color:#c0392b">Something went wrong sending your message — please email us directly at contact@vitakeywellness.com.</p>
         </div>
 
         <div class="support-sidebar">
@@ -873,24 +875,40 @@ html{scroll-behavior:auto}
     });
   })();
 
-  // ── Support contact form (opens a pre-filled email; no backend) ─────────
+  // ── Support contact form: sends directly via Formspree, no email app needed ──
   (function(){
     const form = document.getElementById('supportForm');
     const status = document.getElementById('sfStatus');
+    const errorMsg = document.getElementById('sfError');
     if(!form) return;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : '';
+
     form.addEventListener('submit', (e)=>{
       e.preventDefault();
-      const name = document.getElementById('sfName').value.trim();
-      const email = document.getElementById('sfEmail').value.trim();
-      const subject = document.getElementById('sfSubject').value;
-      const message = document.getElementById('sfMessage').value.trim();
-      const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-      const mailto = `mailto:contact@vitakeywellness.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailto;
-      if(status){
-        status.classList.add('show');
-        status.style.color = 'var(--pine)';
-      }
+      if(errorMsg) errorMsg.classList.remove('show');
+      if(status) status.classList.remove('show');
+      if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(res => {
+        if(res.ok){
+          if(status) status.classList.add('show');
+          form.reset();
+        } else {
+          if(errorMsg) errorMsg.classList.add('show');
+        }
+      })
+      .catch(() => {
+        if(errorMsg) errorMsg.classList.add('show');
+      })
+      .finally(() => {
+        if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
+      });
     });
   })();
 </script>
