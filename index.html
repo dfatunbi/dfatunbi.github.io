@@ -971,8 +971,10 @@ function updatePrice(card, animate=true){
     p3 = Math.round((tier.total/3)*100)/100;
     totalSave = Math.round(p1*3 - tier.total);
     upfrontTotal = tier.total;
-  } else {
+  } else if(card.dataset.p3 !== ''){
     totalSave = Math.round((p1 - p3)*3);
+  } else {
+    totalSave = 0;
   }
   const priceRow = card.querySelector('.tprice');
   const apply = ()=>{
@@ -980,7 +982,7 @@ function updatePrice(card, animate=true){
     card.querySelector('.tprice-was').innerHTML = (sel===1 && totalSave>0) ? `<s>$${p1}/mo</s>` : '';
     card.querySelector('.tsave').innerHTML = totalSave>0
       ? `<span class="tsave-check">✓</span> You save $${totalSave}`
-      : 'Same flat price on any plan';
+      : '';
     const upfrontEl = card.querySelector('.tupfront');
     if(upfrontEl) upfrontEl.textContent = (sel===1 && upfrontTotal!==null) ? `$${upfrontTotal} billed upfront` : '';
   };
@@ -1090,14 +1092,16 @@ function renderModalPrice(){
     p3 = Math.round((tier.total/3)*100)/100;
     totalSave = Math.round(t.p1*3 - tier.total);
     upfrontTotal = tier.total;
-  } else {
+  } else if(t.p3 !== undefined && t.p3 !== null){
     totalSave = Math.round((t.p1 - t.p3)*3);
+  } else {
+    totalSave = 0;
   }
   pmodalPriceNum.textContent = '$' + (modalSel === 1 ? p3 : t.p1);
   pmodalPriceWas.innerHTML = (modalSel === 1 && totalSave > 0) ? `<s>$${t.p1}/mo</s>` : '';
   pmodalSaveNote.innerHTML = totalSave > 0
     ? `<span class="tsave-check">✓</span> You save $${totalSave}`
-    : 'Same flat price on any plan';
+    : '';
   const upfrontEl = document.getElementById('pmodalUpfront');
   if(upfrontEl) upfrontEl.textContent = (modalSel === 1 && upfrontTotal !== null) ? `$${upfrontTotal} billed upfront` : '';
   if(modalSel === 1 && t.tiers3){
