@@ -176,9 +176,6 @@ a:focus-visible,button:focus-visible{outline:2.5px solid var(--honey-deep);outli
 .keybtn.on .kdot::before,.keybtn.on .kdot::after{background:var(--honey)}
 /* ── treatments ── */
   .treats{padding:48px 0 100px}
-.renewal-note{display:table;margin:0 auto 36px;padding:12px 26px;border-radius:999px;background:var(--pine);color:#fff;font-size:16px;font-weight:800;letter-spacing:.01em;text-align:center;box-shadow:0 6px 18px rgba(31,77,62,.28)}
-.renewal-check{display:inline-grid;place-items:center;width:22px;height:22px;margin-right:8px;border-radius:50%;background:var(--honey);color:var(--pine-deep);font-size:13px;font-weight:900;vertical-align:1px}
-@media(max-width:480px){.renewal-note{font-size:14px;padding:11px 20px}}
 .tgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:32px}
 .tgrid .tcard{flex:1 1 320px;max-width:360px}
 @media(max-width:660px){.tgrid .tcard{max-width:420px}}
@@ -291,6 +288,8 @@ a:focus-visible,button:focus-visible{outline:2.5px solid var(--honey-deep);outli
     background:var(--honey-deep);color:#fff;font-size:10px;line-height:1;
   }
 .tupfront{font-size:11.5px;color:var(--mute);margin:-16px 0 18px;text-align:center}
+.tflat{font-size:13px;font-weight:800;letter-spacing:.01em;color:var(--pine);margin:-6px 0 18px;text-align:center}
+.pmodal-flat{font-size:.9rem;font-weight:800;letter-spacing:.01em;color:var(--pine);margin:-4px 0 14px;text-align:center}
 .pmodal-upfront{font-size:.78rem;color:var(--mute);margin:-10px 0 14px;text-align:center}
 .tfoot{display:flex;gap:10px;margin-top:auto}
 .tfoot .btn{flex:1;padding:13px 10px;font-size:14px}
@@ -592,7 +591,6 @@ details p{margin:0;padding:0 46px 26px 2px;color:var(--ink-2);font-size:15px;lin
 <!-- TREATMENTS -->
 <section class="treats" id="treatments">
   <div class="wrap">
-    <div class="renewal-note"><span class="renewal-check">✓</span> No price hikes on renewal</div>
     <div class="tgrid" id="tgrid"></div>
   </div>
 </section>
@@ -766,6 +764,7 @@ details p{margin:0;padding:0 46px 26px 2px;color:var(--ink-2);font-size:15px;lin
         </div>
         <p class="pmodal-save" id="pmodalSaveNote"></p>
         <p class="pmodal-upfront" id="pmodalUpfront"></p>
+        <p class="pmodal-flat" id="pmodalFlat" style="display:none">Flat rate — same price no matter the dosage</p>
         <div class="pmodal-cta">
           <a class="btn honey" id="pmodalCtaBtn" href="#" target="_blank" rel="noopener noreferrer">Get started</a>
           <button class="btn ghost" type="button" id="pmodalCloseBtn2">Keep browsing</button>
@@ -971,7 +970,7 @@ function tCard(t,i){
       ${hasThreeMonth ? `<div class="dial-label">Choose Plan</div>
       <div class="dial" data-sel="1">
         <div class="dial-thumb"></div>
-        <button data-c="0">1 month${showFlatRate(t) ? `<small>Flat Rate</small>` : ''}</button>
+        <button data-c="0">1 month</button>
         <button data-c="1" class="on">3 months${defaultTotalSave > 0 ? `<small>Save $${defaultTotalSave}</small>` : ''}</button>
       </div>` : ''}
       ${(t.tiers3 && !t.only3) ? `<div class="tier-row show">
@@ -987,6 +986,7 @@ function tCard(t,i){
       </div>
       <p class="tsave"></p>
       <p class="tupfront"></p>
+      ${showFlatRate(t) ? `<p class="tflat">Flat rate — same price no matter the dosage</p>` : ''}
       <div class="tfoot">
         <a class="btn honey tcta" href="${t.url1||t.url3||'#'}" target="_blank" rel="noopener noreferrer">Get started</a>
         <button class="btn ghost tdetails" type="button">Details</button>
@@ -1194,11 +1194,12 @@ function openProductModal(t, sel){
   pmodalTitle.textContent = t.name;
   pmodalDesc.textContent = t.desc;
   document.getElementById('pmodalSupply').style.display = 'none';
+  document.getElementById('pmodalFlat').style.display = showFlatRate(t) ? '' : 'none';
   pmodalAddOn.textContent = t.addOn || '';
   pmodalAddOn.style.display = t.addOn ? '' : 'none';
   pmodalBenefits.innerHTML = (t.benefits || []).map(b=>`<li><span class="tick">${tickSvg}</span>${b}</li>`).join('');
   const flatRateLabel = document.getElementById('pmodalFlatRateLabel');
-  if(flatRateLabel) flatRateLabel.textContent = showFlatRate(t) ? 'Flat Rate' : '';
+  if(flatRateLabel) flatRateLabel.textContent = '';
 
   if(t.tiers3){
     pmodalTierRow.innerHTML = `<div class="dial-label tier-label">${t.only3 ? 'Choose Dosage' : 'Choose Tier'}</div>
@@ -1251,6 +1252,7 @@ document.addEventListener('keydown', e=>{
 
 /* ── faq ── */
 const FAQ = [
+  {q:'Does the price change with my dosage?', a:'No. Semaglutide and Tirzepatide are a flat rate — the price you see is the price you pay, no matter the dosage your provider prescribes. If your dose is adjusted over time, your price stays the same.'},
   {q:'Do I need insurance?', a:'No. Pricing is flat and all-inclusive: consultation, prescription, and free express shipping. No memberships, no renewal markups.'},
   {q:'How fast does it arrive?', a:'Most intakes are reviewed within 24–48 hours. If prescribed, medication ships same day from a licensed US pharmacy and arrives in 2–5 business days, discreetly packaged.'},
   {q:'Tirzepatide or Semaglutide — which is right for me?', a:'Both regulate appetite through GLP-1 pathways. Tirzepatide adds GIP action and has shown up to 20% body-weight reduction in trials; Semaglutide is the proven standard at 10–15%. Your provider weighs your history and goals — that decision is theirs to make with you, not a menu to pick from.'},
