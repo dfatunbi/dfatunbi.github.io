@@ -623,7 +623,7 @@ details p{margin:0;padding:0 46px 26px 2px;color:var(--ink-2);font-size:15px;lin
         <span class="turn-num">4</span>
         <h3>Your treatment arrives</h3>
         <p>Medication ships from a licensed US pharmacy, in discreet packaging.</p>
-        <span class="turn-meta">Free shipping</span>
+        <span class="turn-meta">Discreet delivery</span>
       </div>
       <div class="turn rv">
         <span class="turn-num">5</span>
@@ -850,7 +850,7 @@ function prefersReducedMotion(){ return window.matchMedia('(prefers-reduced-moti
 
 /* ribbon */
 (function(){
-  const items = ['Flat Rate','HIPAA-secure','Licensed providers in all 50 states','$0 if you\u2019re not prescribed','Free express shipping'];
+  const items = ['Flat Rate','HIPAA-secure','Licensed providers in all 50 states','$0 if you\u2019re not prescribed'];
   document.getElementById('ribbon').innerHTML = items.map(t=>`<span><i>❋</i>${t}</span>`).join('');
 })();
 
@@ -1253,7 +1253,7 @@ document.addEventListener('keydown', e=>{
 /* ── faq ── */
 const FAQ = [
   {q:'Does the price change with my dosage?', a:'No. Semaglutide and Tirzepatide are a flat rate — the price you see is the price you pay, no matter the dosage your provider prescribes. If your dose is adjusted over time, your price stays the same.'},
-  {q:'Do I need insurance?', a:'No. Pricing is flat and all-inclusive: consultation, prescription, and free express shipping. No memberships, no renewal markups.'},
+  {q:'Do I need insurance?', a:'No. Pricing is flat and all-inclusive: consultation and prescription. No memberships, no renewal markups.'},
   {q:'How fast does it arrive?', a:'Most intakes are reviewed within 24–48 hours. If prescribed, medication ships same day from a licensed US pharmacy and arrives in 2–5 business days, discreetly packaged.'},
   {q:'Tirzepatide or Semaglutide — which is right for me?', a:'Both regulate appetite through GLP-1 pathways. Tirzepatide adds GIP action and has shown up to 20% body-weight reduction in trials; Semaglutide is the proven standard at 10–15%. Your provider weighs your history and goals — that decision is theirs to make with you, not a menu to pick from.'},
   {q:'Can I pause or cancel?', a:'Anytime, in two clicks from your dashboard. No retention calls, no fees. If you pause mid-protocol, your provider will note anything you should know about tapering.'},
