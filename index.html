@@ -495,7 +495,24 @@ details p{margin:0;padding:0 46px 26px 2px;color:var(--ink-2);font-size:15px;lin
 .foot-legal p{margin:0 auto 10px;max-width:920px}
 /* reveal */
   .rv{opacity:0;transform:translateY(26px);transition:opacity .75s ease, transform .75s cubic-bezier(.2,.8,.2,1)}
-.rv.in{opacity:1;transform:none}</style>
+.rv.in{opacity:1;transform:none}
+@media(max-width:520px){.fact{padding-right:14px;margin-right:14px}.fact b{font-size:26px;white-space:nowrap}.fact span{font-size:12.5px}}
+/* mobile menu */
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:10px;min-width:44px;min-height:44px}
+.menu-toggle span{display:block;width:22px;height:2px;background:currentColor;color:#1a2b22;margin:5px 0;transition:.3s}
+.nav-links .m-only{display:none}
+@media(max-width:920px){
+  .menu-toggle{display:block}
+  header .wrap.nav{position:relative}
+  header.nav-open .nav-links{display:flex;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:#fffdf9;box-shadow:0 14px 30px rgba(0,0,0,.12);padding:6px 18px 14px;z-index:95}
+  header.nav-open .nav-links a{padding:15px 4px;font-size:16px;border-bottom:1px solid rgba(0,0,0,.08);min-height:44px}
+  header.nav-open .nav-links .m-only{display:block}
+  header.nav-open .menu-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  header.nav-open .menu-toggle span:nth-child(2){opacity:0}
+  header.nav-open .menu-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+@media(max-width:520px){.nav-end>a:not(.btn){display:none}.nav-end{gap:4px}}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
@@ -508,16 +525,17 @@ details p{margin:0;padding:0 46px 26px 2px;color:var(--ink-2);font-size:15px;lin
       <a class="logo" href="#top" aria-label="Wulo home"><span class="logo-img" role="img" aria-label="Wulo"></span></a>
       <p class="tagline tagline-header" id="typeTagline" data-text="Vitality Redefined"><span class="type-text"></span></p>
     </div>
-    <nav class="nav-links">
+    <nav class="nav-links" id="navLinks">
       <a href="#treatments">Treatments</a>
       <a href="#process">How it works</a>
       <a href="#promise">Our promise</a>
       <a href="#faq">FAQ</a>
+    <a class="m-only" href="https://wulo.fusehealth.com/signin">Log in</a>
     </nav>
     <div class="nav-end">
       <a href="https://wulo.fusehealth.com/signin" style="font-weight:700;font-size:14.5px">Log in</a>
       <a class="btn sm cta" href="treatments.html">Start your plan</a>
-    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button></div>
   </div>
 </header>
 
@@ -1251,6 +1269,16 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
   window.addEventListener('resize',place);
   if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(place); }
   setTimeout(place,250); setTimeout(place,900);
+})();
+
+/* mobile menu toggle */
+(function(){
+  const h=document.getElementById('hdr'),mt=document.getElementById('menuToggle');
+  if(!h||!mt)return;
+  const set=o=>{h.classList.toggle('nav-open',o);mt.setAttribute('aria-expanded',o);mt.setAttribute('aria-label',o?'Close menu':'Open menu')};
+  mt.addEventListener('click',()=>set(!h.classList.contains('nav-open')));
+  h.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>set(false)));
+  addEventListener('resize',()=>{if(innerWidth>920)set(false)});
 })();
 </script>
 </body>

@@ -19,19 +19,19 @@
      here to re-theme every component that references the variable.
      ══════════════════════════════════════════════════════════════════════ */
   :root{
-    --porcelain:#F5F4EE;
-    --porcelain-2:#EAE7DB;
-    --linen:#DDD8C7;
-    --pine:#1F4D3E;
-    --pine-light:#2F6B54;
-    --pine-deep:#122F26;
-    --pine-soft:#DDE5D2;
-    --honey:#C7A459;
-    --honey-deep:#A88A54;
-    --honey-soft:#ECE3CC;
-    --sage:#C9D5BC;
-    --ink:#12201B;
-    --ink-2:#3A453F;
+    --porcelain:#F8F3EB;
+    --porcelain-2:#EFE8DC;
+    --linen:#DDD5C4;
+    --pine:#1C4030;
+    --pine-light:#2F5A47;
+    --pine-deep:#11261C;
+    --pine-soft:#DDE8DF;
+    --honey:#C49C48;
+    --honey-deep:#7F5C12;
+    --honey-soft:#F1E4C6;
+    --sage:#DCE6DA;
+    --ink:#1A2A22;
+    --ink-2:#3E4F46;
     --card:#FFFFFF;
     --display:"Playfair Display",Georgia,serif;
     --body:"Manrope",system-ui,sans-serif;
@@ -66,14 +66,14 @@ a{color:inherit;text-decoration:none}
 /* ---------- NAV ---------- */
   .ribbon{background:var(--pine);color:var(--porcelain);overflow:hidden;padding:9px 0}
 .ribbon-track{
-    display:flex;gap:48px;flex-wrap:wrap;justify-content:center;width:100%;
+    display:flex;gap:6px 48px;flex-wrap:wrap;justify-content:center;width:100%;
     font-size:12px;font-weight:600;letter-spacing:.05em;
   }
 .ribbon-track span{display:flex;gap:9px;align-items:center;opacity:.92}
 .ribbon-track i{font-style:normal;color:var(--honey)}
 header{
     position:sticky;top:0;z-index:50;
-    background:rgba(250,250,247,.82);
+    background:rgba(248,243,235,.82);
     -webkit-backdrop-filter:saturate(180%) blur(12px);
     backdrop-filter:saturate(180%) blur(12px);
     border-bottom:1px solid var(--linen);
@@ -155,7 +155,7 @@ h1 em{font-style:italic;color:var(--pine)}
 .modal-thumb.show{display:flex}
 .modal-cta .btn{flex:1;justify-content:center;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;line-height:1.3}
 /* ---------- TIMELINE ---------- */
-  #timeline{background:var(--pine-deep);padding-top:88px;padding-bottom:88px;color:#F4EEE1}
+  #timeline{background:var(--pine-deep);padding-top:88px;padding-bottom:88px;color:#F8F3EB}
 #timeline .sec-head h2{color:#fff;font-size:clamp(1.5rem,2.6vw,2.1rem)}
 #timeline .sec-head .mono{color:var(--honey);font-size:.72rem}
 .goal-tab.active{color:var(--honey);font-weight:700;background:transparent;animation:tabPop .35s cubic-bezier(0.34,1.56,0.64,1)}
@@ -196,7 +196,7 @@ h1 em{font-style:italic;color:var(--pine)}
   }
 .card:hover .thumb img{
     transform:translateY(-14px) scale(1.10) rotate(-1.6deg);
-    filter:drop-shadow(0 20px 26px rgba(15,36,27,0.28)) drop-shadow(0 6px 10px rgba(15,36,27,0.14));
+    filter:drop-shadow(0 20px 26px rgba(26,42,34,0.28)) drop-shadow(0 6px 10px rgba(26,42,34,0.14));
   }
 .card.pressed .thumb img{
     animation:vialPress .55s cubic-bezier(0.34,1.35,0.5,1);
@@ -251,7 +251,7 @@ h1 em{font-style:italic;color:var(--pine)}
 #how .sec-head .mono{color:var(--pine)}
 #how .sec-head p{color:var(--ink-2)}
 .steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:20px}
-.step.on .node{background:var(--pine);border-color:var(--pine);color:#fff;box-shadow:0 0 0 6px rgba(31,77,62,.15)}
+.step.on .node{background:var(--pine);border-color:var(--pine);color:#fff;box-shadow:0 0 0 6px rgba(28,64,48,.15)}
 #science{background:var(--pine-deep);padding-top:56px;padding-bottom:56px}
 .faq-item.open .pm::after{transform:rotate(90deg);opacity:0}
 /* ---------- COPY EMAIL ---------- */
@@ -265,7 +265,7 @@ h1 em{font-style:italic;color:var(--pine)}
 .copy-toast{
     position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(12px);
     background:var(--pine-deep);color:#fff;font-size:.86rem;font-weight:500;
-    padding:11px 20px;border-radius:100px;box-shadow:0 18px 34px -16px rgba(15,36,27,.5);
+    padding:11px 20px;border-radius:100px;box-shadow:0 18px 34px -16px rgba(26,42,34,.5);
     opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:120;
   }
 .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -288,7 +288,7 @@ h1 em{font-style:italic;color:var(--pine)}
     position:fixed;right:22px;bottom:22px;z-index:90;
     width:46px;height:46px;border-radius:50%;border:1px solid var(--linen);
     background:var(--pine);color:#fff;display:grid;place-items:center;cursor:pointer;
-    box-shadow:0 18px 34px -16px rgba(15,36,27,.5);
+    box-shadow:0 18px 34px -16px rgba(26,42,34,.5);
     opacity:0;transform:translateY(12px) scale(.92);pointer-events:none;
     transition:opacity .25s ease,transform .25s ease,background .2s ease;
   }
@@ -331,11 +331,11 @@ h1 em{font-style:italic;color:var(--pine)}
       gap:0;
       position:absolute;
       top:68px;left:0;right:0;
-      background:rgba(250,250,247,.98);
+      background:rgba(248,243,235,.98);
       -webkit-backdrop-filter:saturate(180%) blur(12px);
     backdrop-filter:saturate(180%) blur(12px);
       border-bottom:1px solid var(--linen);
-      box-shadow:0 26px 44px -30px rgba(15,36,27,.55);
+      box-shadow:0 26px 44px -30px rgba(26,42,34,.55);
       padding:6px 24px 16px;
       transform:translateY(-14px);
       opacity:0;
@@ -416,7 +416,17 @@ html{scroll-behavior:auto}
 .policy-body .terms-list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--pine);opacity:.6}
 .policy-body .terms-list strong{color:var(--ink)}
 .callout-warn{background:#FDF0E3;border:1px solid #EFD3AE;border-radius:12px;padding:16px 18px;margin:16px 0;font-size:.92rem;color:var(--ink)}
-@media(max-width:640px){.toc-card ol{columns:1}}</style>
+@media(max-width:640px){.toc-card ol{columns:1}}
+@media(max-width:900px){
+  .toc-link,.footer a,footer a,.copy-email{min-height:44px;display:inline-flex;align-items:center}
+  footer .foot a{padding:6px 0}
+}
+
+/* match index header CTA + hide cramped tagline on phones */
+header .btn:not(.ghost){background:var(--honey);color:var(--pine-deep)}
+header .btn:not(.ghost):hover{background:#D2AB57;color:var(--pine-deep);box-shadow:0 14px 30px rgba(196,156,72,.40)}
+@media(max-width:720px){.logo-block .tagline-header,header .tagline-header{display:none}}
+</style>
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -434,9 +444,9 @@ html{scroll-behavior:auto}
     </div>
     <nav class="nav-links" id="navLinks">
       <a href="index.html#treatments" class="link">Treatments</a>
-      <a href="index.html#timeline" class="link">Goals</a>
-      <a href="index.html#how" class="link">How it works</a>
-      <a href="index.html#science" class="link">The science</a>
+      
+      <a href="index.html#process" class="link">How it works</a>
+      <a href="index.html#promise" class="link">Our promise</a>
       <a href="index.html#faq" class="link">FAQ</a>
       <a href="https://wulo.fusehealth.com/signin" class="link mobile-only">Log in</a>
     </nav>
@@ -454,7 +464,7 @@ html{scroll-behavior:auto}
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Home</a>
       <span class="sep">/</span>
-      <a href="index.html#faq">Support</a>
+      <a href="support.html">Support</a>
       <span class="sep">/</span>
       <span class="current">Privacy Policy</span>
     </nav>
@@ -582,7 +592,7 @@ html{scroll-behavior:auto}
           <h3>Still have questions?</h3>
           <p>Our care team is available Monday – Friday, 8am – 5pm CT, by phone or email.</p>
         </div>
-        <a class="btn" href="index.html#faq">Contact support</a>
+        <a class="btn" href="support.html">Contact support</a>
       </div>
 
       <nav class="related-nav" aria-label="Related articles">
@@ -633,7 +643,7 @@ html{scroll-behavior:auto}
   (function(){
     const el = document.getElementById('ribbon');
     if(!el) return;
-    const items = ['HIPAA-secure','Licensed providers in all 50 states','$0 if you’re not prescribed','Free express shipping'];
+    const items = ['Flat Rate','HIPAA-secure','Licensed providers in all 50 states','$0 if you’re not prescribed'];
     el.innerHTML = items.map(t=>`<span><i>❋</i>${t}</span>`).join('');
   })();
 
